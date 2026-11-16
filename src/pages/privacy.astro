@@ -1,0 +1,50 @@
+---
+import Page from '../layouts/Page.astro';
+import { contact } from '../data/site.js';
+---
+<Page title="Privacy Policy" description="How IMPROX MEDIA collects, uses and protects personal information." eyebrow="Legal" heading="Privacy Policy" cta={false}>
+  <section style="padding-top:0">
+    <div class="wrap prose">
+      <p>Last updated: 16 November 2026</p>
+      <p>We review this policy as our services change. This page describes how we handle personal information on this website.</p>
+
+      <h2>1. Who we are</h2>
+      <p>IMPROX MEDIA LLC ("IMPROX MEDIA", "we", "us") is responsible for the personal information described here. {contact.address}. Contact: <a href={`mailto:${contact.email}`} style="color:var(--lime)">{contact.email}</a>.</p>
+
+      <h2>2. What we collect</h2>
+      <ul>
+        <li><strong>Enquiries.</strong> When you use a form or email us: your name, email address, channel link and message.</li>
+        <li><strong>Usage data, only if you accept analytics.</strong> Pages viewed, approximate location, device and browser, collected by Google Analytics 4.</li>
+        <li><strong>Your choice.</strong> A small item stored on your device that remembers your cookie choice.</li>
+      </ul>
+      <p>We do not use advertising or marketing cookies on this site, and we do not knowingly collect information from children.</p>
+
+      <h2>3. Why we use it</h2>
+      <ul>
+        <li>To reply to your enquiry and to take steps you ask for before agreeing any work.</li>
+        <li>To understand how the site is used, only if you accept analytics. You can withdraw that choice at any time.</li>
+        <li>To remember your privacy choice, which the site needs in order to work as you asked.</li>
+        <li>To meet legal obligations and protect our rights.</li>
+      </ul>
+
+      <h2>4. Who receives it</h2>
+      <p>Google, for Analytics, only if you accept analytics. Your enquiry is sent to us by your own email application when you use the forms. Our website host keeps technical logs as part of running the site.</p>
+
+      <h2>5. International transfers</h2>
+      <p>Information may be processed in the United States, where our company is based, and in other countries where our team works.</p>
+
+      <h2>6. How long we keep it</h2>
+      <p>We keep enquiry details only as long as needed to reply and to deliver any agreed work, and then delete them. Analytics retention is set in our analytics account.</p>
+
+      <h2>7. Your rights</h2>
+      <p>Depending on where you live, you can ask to access, correct or delete your information, to restrict or object to how we use it, and to withdraw consent at any time. To do this, email <a href={`mailto:${contact.email}`} style="color:var(--lime)">{contact.email}</a>. You can also complain to your local data protection authority. In the European Union that is the authority in your country, and in the United Kingdom it is the Information Commissioner's Office.</p>
+      <p>If you live in California, you can ask what personal information we hold about you and ask us to delete it, using the same email address.</p>
+
+      <h2>8. Cookies</h2>
+      <p>See our <a href="/cookies" style="color:var(--lime)">Cookie Policy</a>, and use <button type="button" data-consent-open style="color:var(--lime);text-decoration:underline;text-underline-offset:3px;font:inherit">Cookie settings</button> to change your choice at any time.</p>
+
+      <h2>9. Changes</h2>
+      <p>If we change this policy in a meaningful way, we will update the date above and say so on this site.</p>
+    </div>
+  </section>
+</Page>

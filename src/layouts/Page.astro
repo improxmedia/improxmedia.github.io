@@ -1,0 +1,25 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CtaBand from '../components/CtaBand.astro';
+// Standard inner page: nav, page hero (eyebrow + h1 + lead), content slot, closing CTA, footer.
+const { title, description, eyebrow, heading, lead, cta = true, path, noindex = false, schema = [], crumbLabel, image, type } = Astro.props;
+---
+<Base title={`${title} | IMPROX MEDIA`} description={description} noindex={noindex} schema={schema} crumbLabel={crumbLabel ?? title} image={image} type={type}>
+  <Nav />
+  <main id="main">
+    <section class="page-hero">
+      <div class="hero-bg"></div><div class="grid-lines"></div>
+      <div class="wrap">
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        <h1 data-split>{heading}</h1>
+        {lead && <p class="lead reveal" style="margin-top:24px">{lead}</p>}
+        <slot name="hero-extra" />
+      </div>
+    </section>
+    <slot />
+    {cta && <CtaBand />}
+  </main>
+  <Footer />
+</Base>

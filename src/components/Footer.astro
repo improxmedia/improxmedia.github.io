@@ -1,0 +1,29 @@
+---
+import { contact, services, socials } from '../data/site.js';
+import Flags from './Flags.astro';
+---
+<footer class="site">
+  <div class="wrap">
+    <div><img src="/brand/imx-logo.png" alt="IMPROX MEDIA" width="150" height="51" /><p style="margin-top:14px;max-width:32ch">© 2026 IMPROX MEDIA LLC. All rights reserved.</p><div style="margin-top:14px"><Flags labels={false} /></div></div>
+    <div class="cols">
+      <div><p class="kicker">Contact</p><ul>
+        <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+        <li><a href={`tel:${contact.phoneUSHref}`}>{contact.phoneUS} (US)</a></li>
+        <li><a href={`tel:${contact.phoneINHref}`}>{contact.phoneIN} (India)</a></li>
+        <li>{contact.address}</li>
+      </ul></div>
+      <div><p class="kicker">Follow</p><ul>
+        {socials.map(([n, u]) => <li><a href={u} target="_blank" rel="noopener noreferrer">{n}</a></li>)}
+      </ul></div>
+      <div><p class="kicker">Services</p><ul>
+        {services.map((s) => <li><a href={`/services/${s.slug}`}>{s.title}</a></li>)}
+      </ul></div>
+      <div><p class="kicker">Company</p><ul>
+        <li><a href="/work">Work</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/about">About</a></li><li><a href="/insights">Insights</a></li><li><a href="/careers">Careers</a></li><li><a href="/contact">Contact</a></li>
+      </ul></div>
+      <div><p class="kicker">Legal</p><ul>
+        <li><a href="/privacy">Privacy Policy</a></li><li><a href="/cookies">Cookie Policy</a></li><li><button type="button" data-consent-open style="font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px">Cookie settings</button></li><li><a href="/terms">Terms</a></li>
+      </ul></div>
+    </div>
+  </div>
+</footer>

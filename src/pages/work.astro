@@ -1,0 +1,71 @@
+---
+import Page from '../layouts/Page.astro';
+import { cases, byLabel, channels, channelsAsOf, moreProof } from '../data/site.js';
+import BrandStrip from '../components/BrandStrip.astro';
+import Testimonials from '../components/Testimonials.astro';
+const filters = ['All', ...new Set(cases.map((c) => c.topic))];
+---
+<Page title="Work and Results" description="Results from IMPROX MEDIA and its founder: YouTube growth, revenue, paid media and operations, with figures from YouTube Studio and campaign reports." eyebrow="Work" heading="Results you can check." lead="Each result says who delivered it and where the numbers come from. Start with the Focus Plus case study, which includes the YouTube Studio screenshots.">
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px);margin-bottom:10px">Results</h2>
+      <div class="filters" role="group" aria-label="Filter results">
+        {filters.map((f, i) => <button type="button" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>)}
+      </div>
+      <div class="cases" id="cases">
+        {cases.map((c) => (
+          <article class="case reveal" data-audience={c.topic}>
+            <div class="img"><svg viewBox="0 0 200 80" aria-hidden="true"><path d="M5 70C40 66 60 54 90 50s50 8 80-16 20-24 25-26"/></svg></div>
+            <div class="body"><small class="by">{c.topic} · {byLabel[c.by]}</small><h3 style="margin-top:10px">{c.href ? <a href={c.href}>{c.title}</a> : c.title}</h3>
+            <ul class="bullets" style="margin-top:14px;font-size:15.5px">{c.points.map((p) => <li>{p}</li>)}</ul>
+            <div class="kpi">{c.kpis.map(([v, l]) => <div><b>{v}</b><small>{l}</small></div>)}</div>
+            {c.href && <p style="margin-top:18px"><a href={c.href} style="color:var(--lime);font:500 12px/1 var(--display);letter-spacing:.06em">Read the case study →</a></p>}</div>
+          </article>
+        ))}
+      </div>
+      <p class="proof-note reveal">Figures come from YouTube Studio analytics and campaign reports. Estimated revenue is YouTube's own estimate, not a verified payout. “Founder-led” results were delivered by our founder in a role outside IMPROX MEDIA and are shown as his track record. The 4.8X return on ad spend is from branded Meta and Google campaigns, separate from the organic YouTube results. Results vary, and past results do not guarantee future results.</p>
+    </div>
+  </section>
+
+  <Testimonials heading="What clients say about working with us" />
+
+  <section class="alt">
+    <div class="wrap">
+      <BrandStrip />
+    </div>
+  </section>
+
+  <section id="channels">
+    <div class="wrap">
+      <span class="eyebrow">Channels</span>
+      <h2 class="reveal" style="max-width:22ch">Channels we have <span class="grad">worked on.</span></h2>
+      <p class="lead reveal" style="margin-top:18px">Public YouTube channels. Totals were checked on {channelsAsOf} (KHABAR 2DAY shows figures recorded on 15 Nov 2026); follow any link to see the live numbers.</p>
+      <div class="channel-grid">
+        {channels.map(([name, img, subs, views, url]) => (
+          <a class="channel-card reveal" href={url} target="_blank" rel="noopener noreferrer"><img src={img} alt="" width="56" height="56" loading="lazy" /><div><b>{name}</b><span>{subs}{views ? ` · ${views}` : ''}</span></div></a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">More proof</span>
+      <h2 class="reveal" style="max-width:22ch">Straight from <span class="grad">YouTube Studio.</span></h2>
+      <div class="proof-gallery">
+        {moreProof.map(([src, alt, t, c]) => (<figure class="reveal"><img src={src} alt={alt} width="1000" height="600" loading="lazy" decoding="async" /><figcaption><b>{t}</b>{c}</figcaption></figure>))}
+      </div>
+      <p class="proof-note reveal">Screenshots were supplied by the channel managers and have not been independently audited. Estimated revenue is YouTube's own estimate, not a verified payout.</p>
+    </div>
+  </section>
+</Page>
+
+<script>
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+  const cards = [...document.querySelectorAll<HTMLElement>('#cases [data-audience]')];
+  btns.forEach((b) => b.addEventListener('click', () => {
+    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const f = b.dataset.filter;
+    cards.forEach((c) => { c.hidden = !(f === 'All' || c.dataset.audience === f); });
+  }));
+</script>

@@ -1,0 +1,98 @@
+---
+import Page from '../../layouts/Page.astro';
+import { focusMonthly } from '../../data/site.js';
+const max = Math.max(...focusMonthly.map(([, v]) => v));
+const peak = new Set(['Jun 24', 'Apr 25']);
+const before = [
+  ['Views', '8.0M', '112.5M', 'before: Mar 2020 to Dec 2023 (about 46 months). After: Jan 2024 to Apr 2025 (16 months)'],
+  ['Watch hours', '292.2K', '3.8M', 'same periods'],
+  ['Subscribers gained (net)', '+53.8K', '+252K', 'same periods'],
+  ['Estimated revenue (USD)', '$562.70', '~$6,795', 'YouTube estimate, not a payout'],
+];
+const monthly = [
+  ['Views per month', '~174K', '~7.0M', 'about 40 times higher'],
+  ['Watch hours per month', '~6.4K', '~237K', 'about 37 times higher'],
+  ['Net subscribers per month', '~1.2K', '~15.8K', 'about 13 times higher'],
+  ['Estimated revenue per month', '~$12', '~$425', 'about 35 times higher'],
+];
+const shots = [
+  ['/proof/focus-plus-lifetime-before.webp', 'YouTube Studio lifetime totals for Focus Plus, March 2020 to December 2023: 7,997,832 views, 292.2K watch hours, 53.8K subscribers gained, 562.70 dollars estimated revenue', 'Before: lifetime totals, Mar 2020 to Dec 2023.'],
+  ['/proof/focus-plus-jan-2024.webp', 'YouTube Studio for Focus Plus, January 2024: 470,097 views, 11.5K watch hours, 1.7K subscribers gained', 'Start: January 2024, the first month under IMPROX MEDIA.'],
+  ['/proof/focus-plus-jun-2024.webp', 'YouTube Studio for Focus Plus, June 2024: 11,977,617 views, 473.2K watch hours, 52.4K subscribers gained, 627.15 dollars estimated revenue', 'Peak growth: June 2024, 11.98M views in one month.'],
+  ['/proof/focus-plus-apr-2025.webp', 'YouTube Studio for Focus Plus, April 2025: 18,963,995 views, 602.6K watch hours, 27.0K subscribers gained', 'Latest full month: April 2025, 18.96M views.'],
+];
+---
+<Page schema={[{ "@context": "https://schema.org", "@type": "Dataset", name: "Focus Plus monthly YouTube views, January 2024 to April 2025", description: "Monthly views for the Focus Plus YouTube channel, managed with IMPROX MEDIA, summed from YouTube Studio monthly reports. Estimated revenue is YouTube's estimate in USD.", creator: { "@id": "https://improxmedia.com/#organization" }, license: "https://creativecommons.org/licenses/by/4.0/", variableMeasured: "Monthly YouTube views", temporalCoverage: "2024-01/2025-04", distribution: { "@type": "DataDownload", encodingFormat: "text/html", contentUrl: "https://improxmedia.com/work/focus-plus" } }]} title="Case study: Focus Plus" description="How a YouTube channel grew from 8.0M views in four years to 112.5M views in 16 months with IMPROX MEDIA, with $0 spent on ads. Figures from YouTube Studio." eyebrow="Case study" heading="Focus Plus: from 8.0M to 112.5M views." lead="One YouTube channel, a like-for-like comparison, and the YouTube Studio screenshots behind every number. No ad spend on the channel.">
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px)">Before and after</h2>
+      <p class="lead reveal" style="margin-top:14px">“Before” is the channel's history to 31 December 2023. “After” is the sum of 16 monthly YouTube Studio reports, January 2024 to April 2025, under IMPROX MEDIA management.</p>
+      <div class="before-after">
+        {before.map(([l, a, b]) => (<div class="ba reveal"><small>{l}</small><b><span style="color:var(--muted)">{a}</span> → <span class="grad">{b}</span></b></div>))}
+      </div>
+      <h3 class="reveal" style="margin:50px 0 6px">Average per month</h3>
+      <div class="before-after">
+        {monthly.map(([l, a, b, n]) => (<div class="ba reveal"><small>{l}</small><b><span style="color:var(--muted)">{a}</span> → <span class="grad">{b}</span></b><small style="margin:10px 0 0">{n}</small></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">Month by month</span>
+      <h2 class="reveal" style="max-width:20ch">Monthly views, <span class="grad">Jan 2024 to Apr 2025.</span></h2>
+      <p class="lead reveal" style="margin-top:14px">Gold bars mark the 2024 peak (June 2024, 12.0M) and the highest month (April 2025, 19.0M). 14 of the 16 months were above 1M views.</p>
+      <div class="chart-bars" id="bars" role="img" aria-label="Bar chart of Focus Plus monthly views in millions from January 2024 (0.5) to April 2025 (19.0). The data is also available in the table below." style="margin-bottom:60px">
+        {focusMonthly.map(([m, v]) => (
+          <div class={'bar' + (peak.has(m) ? ' peak' : '')} tabindex="0"><b>{v}M</b><i style={`height:${(v / max) * 100}%`}></i><span>{m}</span></div>
+        ))}
+      </div>
+      <details class="faq" style="margin-top:0"><summary>View the chart data as a table</summary>
+        <div class="table-scroll"><table class="compare-table"><thead><tr><th scope="col">Month</th><th scope="col">Views (millions)</th></tr></thead>
+        <tbody>{focusMonthly.map(([m, v]) => <tr><th scope="row" style="font:400 16px/1.4 var(--body);letter-spacing:0;text-transform:none;color:var(--text)">{m}</th><td>{v}M</td></tr>)}</tbody></table></div>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Proof</span>
+      <h2 class="reveal" style="max-width:22ch">From <span class="grad">YouTube Studio.</span></h2>
+      <div class="shots">
+        {shots.map(([src, alt, cap]) => (<figure class="reveal"><img src={src} srcset={`${src.replace('.webp', '-800.webp')} 800w, ${src} 1467w`} sizes="(max-width: 900px) 100vw, 50vw" alt={alt} width="1467" height="1041" loading="lazy" decoding="async" /><figcaption>{cap}</figcaption></figure>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap two-col">
+      <div>
+        <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px)">How to read these numbers</h2>
+        <ul class="bullets reveal" style="margin-top:24px">
+          <li>Every figure comes from YouTube Studio for the period shown.</li>
+          <li>Subscribers are the net change (gained minus lost) for each period.</li>
+          <li>Estimated revenue is YouTube's own estimate in US dollars, not a verified payout.</li>
+          <li>Monthly averages divide each total by the number of months in its period.</li>
+          <li>May 2025 is excluded because the report covers only 1 to 23 May.</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Important notes</h3>
+        <p>“$0 ad spend” refers to paid promotion of this channel: the views came from packaging, retention and search. The screenshots were supplied by the channel manager and have not been independently audited. Results vary by channel, and past results do not guarantee future results.</p>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<script>
+  // Bars grow in when scrolled into view. Reduced-motion visitors, and any failure, see the final chart immediately.
+  const wrap = document.getElementById('bars');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches && !(import.meta.env.DEV && location.search.includes('motion=on'));
+  if (wrap && !reduce && 'IntersectionObserver' in window) {
+    const bars = [...wrap.querySelectorAll<HTMLElement>('.bar i')];
+    bars.forEach((b) => { b.style.transform = 'scaleY(0)'; b.style.transition = 'transform .9s cubic-bezier(.22,1,.36,1)'; });
+    new IntersectionObserver((entries, obs) => {
+      if (entries.some((e) => e.isIntersecting)) { bars.forEach((b, i) => setTimeout(() => (b.style.transform = 'scaleY(1)'), i * 45)); obs.disconnect(); }
+    }, { threshold: 0.3 }).observe(wrap);
+  }
+</script>

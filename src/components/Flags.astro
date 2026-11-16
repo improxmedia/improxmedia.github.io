@@ -1,0 +1,10 @@
+---
+// Real flag images for the markets we serve.
+import { markets } from '../data/site.js';
+const { labels = true } = Astro.props;
+---
+<ul class="flags" aria-label="Markets we serve">
+  {markets.map(([name, src]) => (
+    <li><img src={src} alt="" width="28" height="20" loading="lazy" decoding="async" />{labels && <span>{name}</span>}{!labels && <span class="sr-only">{name}</span>}</li>
+  ))}
+</ul>

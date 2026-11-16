@@ -1,0 +1,26 @@
+---
+import Page from '../layouts/Page.astro';
+import { contact } from '../data/site.js';
+---
+<Page title="Contact and Book a Free Audit" description="Book a free YouTube growth audit with IMPROX MEDIA." eyebrow="Contact" heading="Let's grow your channel." lead="Tell us about your channel. We will review it and come back with three quick wins, free." cta={false}>
+  <section style="padding-top:0" id="book">
+    <div class="wrap contact-grid">
+      <ul class="contact-list">
+        <li class="reveal"><p class="kicker">Email</p><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+        <li class="reveal"><p class="kicker">Phone (US)</p><a href={`tel:${contact.phoneUSHref}`}>{contact.phoneUS}</a></li>
+        <li class="reveal"><p class="kicker">Phone (India)</p><a href={`tel:${contact.phoneINHref}`}>{contact.phoneIN}</a></li>
+        <li class="reveal"><p class="kicker">Address</p>{contact.address}</li>
+        <li class="reveal"><p class="kicker">Working hours</p>We work US Eastern business hours, with overlap for Canada, the UK, Ireland, India and Europe. You can email us any time.</li>
+      </ul>
+      <form class="form reveal" id="audit-form" novalidate>
+        <label>Your name<input name="name" autocomplete="name" required /></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+        <label>Channel link<input name="channel" placeholder="https://youtube.com/@yourchannel" /></label>
+        <label>What would you like to achieve?<textarea name="message"></textarea></label>
+        <button class="btn btn-primary" type="submit" data-magnetic>Request my free audit</button>
+        <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+        <p style="font-size:13px;color:var(--muted);text-align:center">Submitting opens your email app with your request ready to send to {contact.email}. We use your details only to reply to you, as described in our <a href="/privacy" style="color:var(--lime);text-decoration:underline">Privacy Policy</a>.</p>
+      </form>
+    </div>
+  </section>
+</Page>

@@ -1,0 +1,25 @@
+---
+import Page from '../layouts/Page.astro';
+// Topics are taken from IMPROX MEDIA's own Instagram posts (May 2026 and earlier). Full articles still need to be written.
+const posts = [
+  ['Strategy', 'Why consistency alone does not guarantee YouTube growth', 'Consistency matters, but it is only one part of a channel that grows.'],
+  ['Thumbnails', 'The real reason your YouTube thumbnails fail', 'Most creators follow outdated advice. Here is what actually earns the click.'],
+  ['Growth', 'Why chasing views is killing your YouTube channel', 'Views alone do not build a strong, lasting channel.'],
+  ['Markets', 'Why the same video performs differently in the US, Europe and Canada', 'The same video does not perform the same way everywhere.'],
+  ['Agencies', 'Thinking of hiring an agency? Avoid these 3 mistakes', 'Not every agency is built to support creators for the long term.'],
+  ['Planning', 'A content calendar method for YouTube growth', 'Most creators post without a clear plan. A calendar changes that.'],
+];
+---
+<Page title="Insights" description="YouTube growth articles from IMPROX MEDIA: strategy, packaging, SEO and analytics." eyebrow="Insights" heading="Practical YouTube growth, in plain language." lead="Short, useful articles from the people who run channels every day.">
+  <section style="padding-top:0">
+    <div class="wrap">
+      
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px);margin-bottom:10px">Topics we cover</h2>
+      <div class="cards-3">
+        {posts.map(([c, t, d]) => (
+          <article class="article-card reveal"><div class="img">{c.toUpperCase()}</div><div class="body"><small>{c}</small><h3>{t}</h3><p>{d}</p></div></article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Page>

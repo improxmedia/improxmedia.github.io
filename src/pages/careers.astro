@@ -1,0 +1,13 @@
+---
+import Page from '../layouts/Page.astro';
+import { contact } from '../data/site.js';
+---
+<Page title="Careers" description="Careers at IMPROX MEDIA: YouTube strategists, editors and designers working with creators and brands worldwide." eyebrow="Careers" heading="Help creators and brands grow." lead="We are a distributed team of strategists, editors and designers. If that sounds like you, we would like to hear from you.">
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px)">Work with us</h2>
+      <p class="lead reveal" style="margin-top:18px">We do not have open roles listed right now. We are always glad to hear from strong strategists, editors and designers.</p>
+      <div class="card reveal" style="margin-top:40px"><h3>Get in touch</h3><p>Send a short note and a link to your portfolio or channel work to <a href={`mailto:${contact.email}`} style="color:var(--lime)">{contact.email}</a>.</p></div>
+    </div>
+  </section>
+</Page>

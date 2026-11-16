@@ -1,0 +1,40 @@
+---
+import Page from '../../layouts/Page.astro';
+import { services, aiStack } from '../../data/site.js';
+const steps = ['Audit', 'Strategy', 'Production', 'Packaging', 'Publish', 'Optimize'];
+---
+<Page title="YouTube Growth Services" description="Strategy, editing and thumbnails, SEO and audits, and full channel management from IMPROX MEDIA." eyebrow="Services" heading="Everything your channel needs, under one roof." lead="Start with one service or run the whole pipeline with us. Every engagement begins with a free audit.">
+  <section>
+    <div class="wrap">
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px);margin-bottom:10px">Our services</h2>
+      <div class="svc-list">
+        {services.map((s) => (
+          <a class="svc-row reveal" href={`/services/${s.slug}`}>
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={s.icon}/></svg></div>
+            <div><h3>{s.title}</h3><p>{s.short}</p></div>
+            <span class="go">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">AI-powered operations</span>
+      <h2 class="reveal" style="max-width:22ch">An agency that <span class="grad">runs on agents.</span></h2>
+      <p class="lead reveal" style="margin-top:18px">A self-hosted automation stack handles research, outreach, content production and reporting, so our people spend their time on strategy and craft. Anything client-facing is reviewed by a person first.</p>
+      <div class="stack-grid">
+        {aiStack.map(([t, d]) => (<div class="card reveal"><h3>{t}</h3><p>{d}</p></div>))}
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">How it fits together</span>
+      <h2 class="reveal" style="max-width:20ch">One process behind <span class="grad">every service.</span></h2>
+      <div class="cards-3" style="margin-top:50px">
+        {steps.map((t, i) => (<div class="card reveal"><div class="ico">0{i + 1}</div><h3>{t}</h3></div>))}
+      </div>
+    </div>
+  </section>
+</Page>

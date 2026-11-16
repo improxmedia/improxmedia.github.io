@@ -1,0 +1,52 @@
+---
+import Page from '../layouts/Page.astro';
+import { faqs } from '../data/site.js';
+const plans = [
+  ['Starter', ['Channel audit', 'Monthly strategy', 'Thumbnail & title support'], false],
+  ['Growth', ['Everything in Starter', 'Editing & packaging', 'Shorts repurposing', 'Monthly reporting'], true],
+  ['Pro', ['Everything in Growth', 'Full channel management', 'Dedicated strategist', 'Weekly calls'], false],
+];
+const rows = [
+  ['Channel audit', [1, 1, 1]],
+  ['Monthly strategy review', [1, 1, 1]],
+  ['Thumbnail & title support', [1, 1, 1]],
+  ['Video editing', [0, 1, 1]],
+  ['Shorts repurposing', [0, 1, 1]],
+  ['Monthly report', [0, 1, 1]],
+  ['Full channel management', [0, 0, 1]],
+  ['Dedicated strategist', [0, 0, 1]],
+  ['Weekly calls', [0, 0, 1]],
+];
+---
+<Page schema={[{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }]} title="YouTube Growth Pricing and Plans" description="Plans for YouTube growth: Starter, Growth and Pro. Pricing is shared on a free audit call." eyebrow="Pricing" heading="Pick a plan, or build your own." lead="Every plan starts with a free audit. We scope and price around your channel, goals and output.">
+  <section style="padding-top:0">
+    <div class="wrap">
+      
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px);margin-bottom:10px">Plans</h2>
+      <div class="plans">
+        {plans.map(([n, f, hot]) => (
+          <article class={'plan reveal' + (hot ? ' hot' : '')}><h3>{n}{hot ? ' · Best value' : ''}</h3><div class="price">Let's talk</div><ul>{f.map((x) => <li>{x}</li>)}</ul><a class={'btn ' + (hot ? 'btn-primary' : 'btn-ghost')} href="/contact#book">Book a call</a></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px)">Compare plans</h2>
+      <div class="table-scroll">
+        <table class="compare-table">
+          <thead><tr><th scope="col">Included</th><th scope="col">Starter</th><th scope="col">Growth</th><th scope="col">Pro</th></tr></thead>
+          <tbody>{rows.map(([label, v]) => (<tr><th scope="row" style="font:400 16px/1.4 var(--body);letter-spacing:0;text-transform:none;color:var(--text)">{label}</th>{v.map((x) => <td>{x ? <span class="yes" aria-label="Included">✓</span> : <span aria-label="Not included" style="color:var(--muted)">–</span>}</td>)}</tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap" style="max-width:860px">
+      <div style="text-align:center"><span class="eyebrow">FAQ</span><h2 class="reveal">Questions, <span class="grad">answered.</span></h2></div>
+      <div class="faq">{faqs.map(([q, a]) => (<details class="reveal"><summary>{q}</summary><p>{a}</p></details>))}</div>
+    </div>
+  </section>
+</Page>

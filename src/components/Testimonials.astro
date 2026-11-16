@@ -1,0 +1,25 @@
+---
+// Approved client testimonials. Renders nothing while the list is empty, so the public site never shows placeholders.
+import { testimonials } from '../data/site.js';
+const { heading = 'What our clients say' } = Astro.props;
+---
+{testimonials.length > 0 && (
+  <section class="testimonials" aria-labelledby="testimonials-heading">
+    <div class="wrap">
+      <span class="eyebrow">Client voices</span>
+      <h2 id="testimonials-heading" class="reveal" style="max-width:20ch">{heading}</h2>
+      <div class="t-grid">
+        {testimonials.map((t) => (
+          <figure class="t-card reveal">
+            <blockquote><p>“{t.quote}”</p></blockquote>
+            <figcaption>
+              <b>{t.name}</b>
+              <span>{t.role}, <a href={t.url} target="_blank" rel="noopener noreferrer">{t.org}</a></span>
+              <em>{t.kind === 'brand' ? 'Brand' : 'Channel'} · Quote approved by the client</em>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

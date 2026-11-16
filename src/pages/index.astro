@@ -1,0 +1,232 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SignatureHero from '../components/SignatureHero.astro';
+import Flags from '../components/Flags.astro';
+import BrandStrip from '../components/BrandStrip.astro';
+import Certs from '../components/Certs.astro';
+import ChannelMarquee from '../components/ChannelMarquee.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { services as serviceData, cases, byLabel, founder, contact, socials } from '../data/site.js';
+const homeCases = cases.slice(0, 3);
+// Structured data so search engines and AI assistants can read who and where the company is.
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://improxmedia.com/#organization',
+  name: 'IMPROX MEDIA',
+  alternateName: ['IMX', 'IMPROX MEDIA LLC'],
+  legalName: 'IMPROX MEDIA LLC',
+  url: 'https://improxmedia.com',
+  logo: 'https://improxmedia.com/brand/imx-logo.png',
+  description: 'A global YouTube growth and strategy agency for creators, B2B and B2C brands.',
+  foundingDate: '2023',
+  email: contact.email,
+  telephone: contact.phoneUS,
+  address: { '@type': 'PostalAddress', streetAddress: '12 Wood Duck Dr', addressLocality: 'Savannah', addressRegion: 'GA', postalCode: '31405', addressCountry: 'US' },
+  areaServed: ['United States', 'Canada', 'United Kingdom', 'Ireland', 'India', 'Europe'],
+  founder: { '@type': 'Person', '@id': 'https://improxmedia.com/about#founder', name: founder.name, jobTitle: founder.role, worksFor: { '@id': 'https://improxmedia.com/#organization' } },
+  knowsAbout: ['YouTube growth', 'YouTube SEO', 'Thumbnail click-through optimisation', 'Audience retention', 'YouTube monetisation', 'Paid social advertising'],
+  sameAs: socials.map(([, u]) => u),
+};
+// All values marked TODO are placeholders to confirm with IMPROX MEDIA before launch.
+const BOOK = '#book';
+const services = serviceData.map((s) => ({ t: s.title, d: s.short, i: s.icon, slug: s.slug }));
+const steps = [
+  ['Audit', 'We map your channel, competitors and search demand to find the gaps that move views.'],
+  ['Strategy', 'A content roadmap with clear topics, formats and a publishing rhythm you can sustain.'],
+  ['Production', 'Scripting, editing and motion design handled by one team, so quality stays consistent.'],
+  ['Packaging', 'Titles and thumbnails designed and tested, because the click decides everything else.'],
+  ['Publish', 'Scheduling, metadata and distribution to Shorts, community and other platforms.'],
+  ['Optimize', 'Monthly retention and click-through reviews that feed the next round of videos.'],
+];
+const faqs = [
+  ['What does an IMPROX MEDIA engagement look like?', 'It starts with a free audit call. Then we agree a plan and scope, and our team handles strategy, production and optimisation on a monthly rhythm.'],
+  ['Who do you work with?', 'Creators, B2B companies and B2C brands. Your goal differs for each: audience and income, qualified leads, or sales and awareness.'],
+  ['How quickly will I see results?', 'We set expectations during the audit. YouTube compounds over time, so we track leading indicators such as click-through rate and retention from the first month.'],
+  ['Do you guarantee views or subscribers?', 'No honest agency can. We commit to process, quality and transparent reporting, and we show you the data every month.'],
+  ['Where is the team based?', 'IMPROX MEDIA is headquartered in the United States and works with clients across the USA, Canada, the UK, Ireland, India and Europe. We work US Eastern business hours with overlap for Canada, the UK, Ireland, India and Europe.'],
+];
+---
+<Base title="YouTube Growth Agency for Creators and Brands | IMPROX MEDIA" description="IMPROX MEDIA is a YouTube growth agency founded in 2023: channel strategy, thumbnails, retention and SEO for creators, B2B and B2C brands in the USA, Canada, UK, Ireland, India and Europe." schema={[{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }]}>
+  <Nav book={BOOK} />
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-bg"></div><div class="grid-lines"></div>
+      <div class="wrap">
+        <div class="pill-row reveal"><span class="pill">Creators</span><span class="pill">B2B brands</span><span class="pill">B2C brands</span></div>
+        <h1 data-split>Grow your YouTube channel <span class="grad">on purpose.</span></h1>
+        <p class="lead reveal">IMPROX MEDIA pairs AI-assisted research with a senior production team to turn your channel into a steady source of views, subscribers and customers.</p>
+        <div class="cta-row reveal">
+          <a class="btn btn-primary" href={BOOK} data-magnetic>Book your free growth audit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" href="#work">See the work</a>
+        </div>
+        <p class="trust reveal">Free audit &nbsp;·&nbsp; Built for creators, B2B and B2C brands</p>
+        <SignatureHero />
+      </div>
+    </section>
+
+    <section class="proof" aria-label="Clients and results">
+      <div class="wrap">
+        <small>Client work across</small>
+        <Flags />
+        <div class="marquee" aria-hidden="true"><div class="track">
+          {[...Array(2)].map(() => ['YOUTUBE SEO','CTR & THUMBNAILS','RETENTION','RPM & MONETISATION','META & GOOGLE ADS','CHANNEL AUDITS','AI AUTOMATION','SHORTS STRATEGY'].map((c) => <span>{c}</span>))}
+        </div></div>
+        <BrandStrip />
+        <Certs compact />
+        <div class="nums">
+          <div class="num reveal"><b class="grad"><span data-count="10" data-suffix="B+">0</span></b><p>Lifetime views over 7 years, for 30+ brands and channels <sup>1</sup></p></div>
+          <div class="num reveal"><b class="grad">112.5M</b><p>Views in 16 months on one channel, with $0 spent on ads <sup>2</sup></p></div>
+          <div class="num reveal"><b class="grad">4.8X</b><p>Return on ad spend on branded paid campaigns <sup>3</sup></p></div>
+        </div>
+        <ol class="footnotes">
+          <li>Founder-led track record across all social platforms, 2017 to 2026, including work before IMPROX MEDIA was founded in 2023. 100B+ impressions over the same period.</li>
+          <li>Focus Plus, managed with IMPROX MEDIA, January 2024 to April 2025, from YouTube Studio. <a href="/work/focus-plus">See the case study</a>.</li>
+          <li>Meta and Google campaigns, separate from the organic YouTube results. Past results do not guarantee future results.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="system">
+      <div class="wrap system-grid">
+        <div class="sticky">
+          <span class="eyebrow">The system</span>
+          <h2 class="reveal">A repeatable path from idea to <span class="grad">compounding views.</span></h2>
+          <p class="lead reveal" style="margin-top:22px">Six stages, one team, one dashboard. Every stage ends in a decision backed by data.</p>
+          <div class="cta-row reveal"><a class="btn btn-primary" href={BOOK} data-magnetic>Start with an audit</a></div>
+        </div>
+        <ol class="steps" id="steps" style="list-style:none">
+          <span class="spine-base" aria-hidden="true"></span><span class="spine-fill" id="spine-draw" aria-hidden="true"></span>
+          {steps.map(([t, d], i) => (<li class="step reveal"><span class="n">0{i + 1}</span><h3>{t}</h3><p>{d}</p></li>))}
+        </ol>
+      </div>
+    </section>
+
+    <section id="services" style="background:var(--bg-2);border-block:1px solid var(--line)">
+      <div class="wrap">
+        <span class="eyebrow">Services</span>
+        <h2 class="reveal" style="max-width:18ch">Everything your channel needs, <span class="grad">under one roof.</span></h2>
+        <div class="svc-grid">
+          {services.map((s) => (
+            <article class="svc reveal">
+              <div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={s.i}/></svg></div>
+              <h3 style="margin-top:22px">{s.t}</h3><p>{s.d}</p></div>
+              <a class="more" href={`/services/${s.slug}`}>Learn more →</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pack" id="packaging">
+      <div class="wrap">
+        <span class="eyebrow">Packaging</span>
+        <h2 class="reveal" style="max-width:20ch">The click is won in the <span class="grad">thumbnail.</span></h2>
+        <p class="lead reveal" style="margin-top:20px">Drag to compare a real Shorts grid before and after designed thumbnails.</p>
+        <div class="compare real" id="compare" role="group" aria-label="Before and after comparison of a real YouTube Shorts grid">
+          <div class="cmp before"><span class="lab">BEFORE</span><img src="/proof/more/07-shorts-before.webp" alt="Grid of YouTube Shorts with no custom thumbnails, with view counts from 7.9K to 73K" loading="lazy" decoding="async" /></div>
+          <div class="cmp after"><span class="lab">AFTER</span><img src="/proof/more/08-shorts-now.webp" alt="Grid of YouTube Shorts with designed thumbnails, bold text and a clear call to action" loading="lazy" decoding="async" /></div>
+          <div class="handle"></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Reveal the after version" id="cmp-range" />
+        </div>
+        <p class="compare-note">Real YouTube Studio views of the TSP channel (ISKCON media), led by our founder. Click-through rate readings: 4.2% on 3 Aug 2025 and 6.1% on 14 Oct 2025 (single-day readings, not averages). <a href="/work" style="color:var(--lime);text-decoration:underline">See the results</a></p>
+        <div class="two-col" style="margin-top:60px;align-items:center">
+          <figure class="reveal" style="border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)">
+            <img src="/proof/more/custom-thumbnail-10x.webp" alt="Thumbnail design sample with bold headline text, a high-contrast green background and an expressive face" width="1000" height="565" loading="lazy" decoding="async" style="width:100%;height:auto" />
+            <figcaption style="padding:14px 18px;font-size:13.5px;color:var(--muted)">Thumbnail design sample from the IMPROX MEDIA portfolio. Click-through impact is not measured here.</figcaption>
+          </figure>
+          <div>
+            <h3 class="reveal">What we design for</h3>
+            <ul class="bullets reveal" style="margin-top:18px">
+              <li><b>One idea, 2 to 4 words</b> that reads on a phone in a second.</li>
+              <li><b>One expressive face</b> next to the title keeps eyes on the thumbnail.</li>
+              <li><b>High contrast</b> in bold accent colours stands out in the feed.</li>
+              <li><b>Two versions tested</b> with YouTube Studio's thumbnail testing.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="wrap">
+        <span class="eyebrow">Results</span>
+        <h2 class="reveal" style="max-width:20ch">Channels we have <span class="grad">moved.</span></h2>
+        <div class="cases">
+          {homeCases.map((c) => (
+            <article class="case reveal">
+              <div class="img"><svg viewBox="0 0 200 80" aria-hidden="true"><path d="M5 70C40 66 60 54 90 50s50 8 80-16 20-24 25-26"/></svg></div>
+              <div class="body"><small class="by">{c.topic} · {byLabel[c.by]}</small><h3 style="margin-top:10px">{c.href ? <a href={c.href}>{c.title}</a> : c.title}</h3>
+              <ul class="bullets" style="margin-top:14px;font-size:15.5px">{c.points.map((p) => <li>{p}</li>)}</ul>
+              <div class="kpi">{c.kpis.map(([v, l]) => <div><b>{v}</b><small>{l}</small></div>)}</div></div>
+            </article>
+          ))}
+        </div>
+        <p class="proof-note reveal">Results are from YouTube Studio analytics and campaign reports. Estimated revenue is YouTube's own estimate. Past results do not guarantee future results. <a href="/work">See all results</a></p>
+        <div class="cta-row reveal" style="justify-content:center;margin-top:50px"><a class="btn btn-primary" href={BOOK} data-magnetic>Book your free growth audit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </section>
+
+    <ChannelMarquee />
+
+    <Testimonials />
+
+    <section>
+      <div class="wrap">
+        <span class="eyebrow">Leadership</span>
+        <div class="founder-card reveal" style="margin-top:20px">
+          <img src={founder.photo} alt={`${founder.name}, ${founder.role} of IMPROX MEDIA`} width="260" height="260" loading="lazy" decoding="async" />
+          <div>
+            <h3>{founder.name}</h3>
+            <div class="role">{founder.role}</div>
+            <p>{founder.bio[0]}</p>
+            <p>{founder.bio[1]}</p>
+            <p style="margin-top:18px"><a href="/about" style="color:var(--lime)">About our team and credentials →</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plans">
+      <div class="wrap">
+        <span class="eyebrow">Plans</span>
+        <h2 class="reveal" style="max-width:18ch">Pick a plan, or <span class="grad">build your own.</span></h2>
+        <p class="lead reveal" style="margin-top:20px">Plans are scoped on a free audit call, so the price reflects your channel and goals.</p>
+        <div class="plans">
+          {[['Starter', ['Channel audit', 'Monthly strategy', 'Thumbnail & title support'], false], ['Growth', ['Everything in Starter', 'Editing & packaging', 'Shorts repurposing', 'Monthly reporting'], true], ['Pro', ['Everything in Growth', 'Full channel management', 'Dedicated strategist', 'Weekly calls'], false]].map(([n, f, hot]) => (
+            <article class={'plan reveal' + (hot ? ' hot' : '')}><h3>{n}{hot ? ' · Best value' : ''}</h3><div class="price">Let's talk</div><ul>{f.map((x) => <li>{x}</li>)}</ul><a class={'btn ' + (hot ? 'btn-primary' : 'btn-ghost')} href={BOOK}>Book a call</a></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" style="background:var(--bg-2);border-block:1px solid var(--line)">
+      <div class="wrap">
+        <div style="text-align:center"><span class="eyebrow">FAQ</span><h2 class="reveal">Questions, <span class="grad">answered.</span></h2></div>
+        <div class="faq">{faqs.map(([q, a]) => (<details class="reveal"><summary>{q}</summary><p>{a}</p></details>))}</div>
+      </div>
+    </section>
+
+    <section class="book" id="book">
+      <div class="wrap" style="position:relative">
+        <span class="eyebrow">Free audit</span>
+        <h2 class="reveal">Ready to grow <span class="grad">your channel?</span></h2>
+        <p class="lead reveal">Tell us about your channel. We will review it and come back with three quick wins, free.</p>
+        <form class="form reveal" id="audit-form" novalidate>
+          <label>Your name<input name="name" autocomplete="name" required /></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+          <label>Channel link<input name="channel" placeholder="https://youtube.com/@yourchannel" /></label>
+          <button class="btn btn-primary" type="submit" data-magnetic>Request my free audit</button>
+          <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+          <p style="font-size:13px;color:var(--muted);text-align:center">Submitting opens your email app with your request ready to send to Connect@improxmedia.com. We use your details only to reply to you, as described in our <a href="/privacy" style="color:var(--lime);text-decoration:underline">Privacy Policy</a>.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)}></script>
+</Base>

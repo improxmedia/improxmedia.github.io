@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+import ConsentBanner from '../components/ConsentBanner.astro';
+
+const {
+  title,
+  description,
+  noindex = false,
+  image = '/og-image.png',
+  type = 'website',
+  schema = [],
+  crumbLabel,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site).toString();
+const absImage = new URL(image, Astro.site).toString();
+
+// Breadcrumbs from the URL. Known section names get readable labels; the last crumb uses the page's own label.
+const labels = { services: 'Services', work: 'Work', about: 'About', pricing: 'Pricing', insights: 'Insights', careers: 'Careers', contact: 'Contact', privacy: 'Privacy Policy', cookies: 'Cookie Policy', terms: 'Terms of Service' };
+const segs = Astro.url.pathname.replace(/\/$/, '').split('/').filter(Boolean);
+const crumbs = [{ name: 'Home', item: new URL('/', Astro.site).toString() }];
+let acc = '';
+segs.forEach((seg, i) => {
+  acc += '/' + seg;
+  const last = i === segs.length - 1;
+  crumbs.push({ name: last && crumbLabel ? crumbLabel : (labels[seg] || seg), item: new URL(acc, Astro.site).toString() });
+});
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': new URL('/#website', Astro.site).toString(),
+  name: 'IMPROX MEDIA',
+  url: new URL('/', Astro.site).toString(),
+  inLanguage: 'en',
+  publisher: { '@id': new URL('/#organization', Astro.site).toString() },
+};
+const pageLd = {
+  '@context': 'https://schema.org',
+  '@type': segs.length ? 'WebPage' : 'WebPage',
+  '@id': canonical + '#webpage',
+  url: canonical,
+  name: title,
+  description,
+  inLanguage: 'en',
+  isPartOf: { '@id': new URL('/#website', Astro.site).toString() },
+  about: { '@id': new URL('/#organization', Astro.site).toString() },
+  primaryImageOfPage: { '@type': 'ImageObject', url: absImage },
+};
+const crumbLd = crumbs.length > 1 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.item })),
+} : null;
+const allLd = [websiteLd, pageLd, ...(crumbLd ? [crumbLd] : []), ...schema];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+  <link rel="canonical" href={canonical} />
+  <meta name="author" content="IMPROX MEDIA LLC" />
+  <meta name="theme-color" content="#050605" />
+  <meta name="color-scheme" content="dark" />
+
+  <meta property="og:site_name" content="IMPROX MEDIA" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={absImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="IMPROX MEDIA, YouTube growth agency" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={absImage} />
+
+  <link rel="preload" href="/fonts/unbounded-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+  <script is:inline>document.documentElement.classList.add('js')</script>
+  {allLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)}></script>)}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <slot />
+  <ConsentBanner />
+  <script>import '../scripts/motion.js';</script>
+</body>
+</html>

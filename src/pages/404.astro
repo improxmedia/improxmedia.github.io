@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base title="Page not found | IMPROX MEDIA" description="This page could not be found.">
+  <Nav />
+  <main id="main" class="notfound">
+    <div class="hero-bg" style="position:absolute;inset:0;background:radial-gradient(50% 50% at 50% 40%,rgba(0,199,96,.2),transparent 70%);pointer-events:none"></div>
+    <div style="position:relative">
+      <div class="big grad">404</div>
+      <p>That page does not exist or has moved. Let's get you back on track.</p>
+      <div class="cta-row" style="justify-content:center"><a class="btn btn-primary" href="/" data-magnetic>Back to home</a><a class="btn btn-ghost" href="/services">Explore services</a></div>
+    </div>
+  </main>
+  <Footer />
+</Base>

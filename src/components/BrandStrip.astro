@@ -1,0 +1,11 @@
+---
+import { brands } from '../data/site.js';
+const { title = 'Brands we have worked with' } = Astro.props;
+---
+<div class="brand-strip">
+  <small>{title}</small>
+  <ul class="brand-tiles">
+    {brands.map(([name, src, w, h]) => (<li><img src={src} alt={name} width={w} height={h} loading="lazy" decoding="async" /></li>))}
+  </ul>
+  <p class="trademark">Logos are trademarks of their respective owners and are shown only to identify the brands. No endorsement is implied.</p>
+</div>

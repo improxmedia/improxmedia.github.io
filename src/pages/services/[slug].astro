@@ -1,0 +1,52 @@
+---
+import Page from '../../layouts/Page.astro';
+import { services, cases, byLabel } from '../../data/site.js';
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props;
+const others = services.filter((x) => x.slug !== s.slug);
+---
+<Page title={`${s.title} | Services`} description={s.short} eyebrow="Service" heading={s.title} lead={s.tagline} crumbLabel={s.title} schema={[{ "@context": "https://schema.org", "@type": "Service", name: s.title, description: s.short, provider: { "@id": "https://improxmedia.com/#organization" }, areaServed: ["United States", "Canada", "United Kingdom", "Ireland", "India", "Europe"], serviceType: "YouTube growth", url: "https://improxmedia.com/services/" + s.slug }, { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: s.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }]}>
+  <section>
+    <div class="wrap two-col">
+      <div>
+        <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px)">What you get</h2>
+        <p class="lead reveal" style="margin-top:20px">{s.intro}</p>
+        <h3 class="reveal" style="margin:44px 0 16px">Best for</h3>
+        <ul class="bullets reveal">{s.forWho.map((w) => <li>{w}</li>)}</ul>
+        <div class="cta-row reveal"><a class="btn btn-primary" href="/contact#book" data-magnetic>Book your free growth audit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+      <ul class="checks">{s.deliverables.map((d) => <li class="reveal">{d}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">Results</span>
+      <h2 class="reveal" style="max-width:20ch">Recent results from our work</h2>
+      <div class="cards-2" style="margin-top:44px">
+        {cases.slice(0, 2).map((c) => (
+          <div class="card reveal"><small class="by" style="font:500 11px/1.4 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--lime)">{byLabel[c.by]}</small><h3 style="margin-top:10px">{c.href ? <a href={c.href}>{c.title}</a> : c.title}</h3><ul class="bullets" style="margin-top:14px">{c.points.map((p) => <li>{p}</li>)}</ul></div>
+        ))}
+      </div>
+      <p class="proof-note reveal"><a href="/work">See all results</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap" style="max-width:860px">
+      <div style="text-align:center"><span class="eyebrow">FAQ</span><h2 class="reveal">Common <span class="grad">questions.</span></h2></div>
+      <div class="faq">{s.faq.map(([q, a]) => (<details class="reveal"><summary>{q}</summary><p>{a}</p></details>))}</div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px)">Explore other services</h2>
+      <div class="cards-3" style="margin-top:36px">
+        {others.map((o) => (<a class="card reveal" href={`/services/${o.slug}`}><h3>{o.title}</h3><p>{o.short}</p></a>))}
+      </div>
+    </div>
+  </section>
+</Page>

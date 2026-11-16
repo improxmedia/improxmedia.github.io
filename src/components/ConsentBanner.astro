@@ -1,0 +1,101 @@
+---
+// Cookie consent. Nothing that is not strictly necessary runs before the visitor chooses.
+// Accept and Reject have equal prominence, choices are granular, and consent can be changed or withdrawn at any time
+// (footer "Cookie settings"). Google Analytics is the only optional tool and loads only after "Analytics" is accepted.
+---
+<div class="consent" id="consent" role="region" aria-labelledby="consent-title" hidden>
+  <div class="consent-main">
+    <h2 id="consent-title">Your privacy choices</h2>
+    <p>We use essential storage to run this site. With your permission we would also use Google Analytics to understand how the site is used. Nothing optional loads unless you accept. Read our <a href="/privacy">Privacy Policy</a> and <a href="/cookies">Cookie Policy</a>.</p>
+    <div class="consent-actions">
+      <button type="button" class="c-btn" data-consent="reject">Reject all</button>
+      <button type="button" class="c-btn" data-consent="accept">Accept all</button>
+      <button type="button" class="c-link" data-consent="customise" aria-expanded="false" aria-controls="consent-panel">Customise</button>
+    </div>
+  </div>
+  <div class="consent-panel" id="consent-panel" hidden>
+    <label class="c-row"><input type="checkbox" checked disabled /><span><b>Strictly necessary</b><small>Remembers your privacy choice on this device. Always on.</small></span></label>
+    <label class="c-row"><input type="checkbox" id="consent-analytics" /><span><b>Analytics</b><small>Google Analytics 4: anonymous usage statistics. Off unless you turn it on.</small></span></label>
+    <div class="consent-actions"><button type="button" class="c-btn" data-consent="save">Save my choices</button></div>
+  </div>
+</div>
+
+<style>
+  .consent{position:fixed;left:16px;bottom:16px;z-index:90;width:min(540px,calc(100vw - 32px));background:rgba(12,16,12,.98);border:1px solid rgba(0,199,96,.35);border-radius:20px;padding:22px 24px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+  .consent[hidden]{display:none}
+  .consent h2{font:500 15px/1.2 var(--display);letter-spacing:0;margin-bottom:10px}
+  .consent p{font-size:14.5px;line-height:1.5;color:rgba(240,240,240,.8)}
+  .consent a{color:var(--lime);text-decoration:underline;text-underline-offset:3px}
+  .consent-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;align-items:center}
+  .c-btn{padding:12px 20px;border-radius:99px;border:1px solid rgba(255,255,255,.25);font:500 12px/1 var(--display);letter-spacing:.04em;background:rgba(255,255,255,.06);transition:background .3s,border-color .3s}
+  .c-btn:hover{background:rgba(0,199,96,.18);border-color:var(--green)}
+  .c-link{padding:12px 8px;font:500 12px/1 var(--display);letter-spacing:.04em;color:var(--muted);text-decoration:underline;text-underline-offset:4px}
+  .c-link:hover{color:var(--text)}
+  .consent-panel{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);display:grid;gap:12px}
+  .consent-panel[hidden]{display:none}
+  .c-row{display:flex;gap:14px;align-items:flex-start;cursor:pointer}
+  .c-row input{margin-top:4px;width:18px;height:18px;accent-color:var(--green)}
+  .c-row b{display:block;font-weight:500;font-size:14.5px}
+  .c-row small{display:block;color:var(--muted);font-size:13px;margin-top:2px;line-height:1.4}
+  @media(max-width:560px){.consent{left:8px;right:8px;bottom:8px;width:auto;padding:18px}.c-btn{flex:1;text-align:center}}
+</style>
+
+<script>
+  // Stored on this device only. Version the key so a future change to the tools we use can ask again.
+  const KEY = 'imx-consent-v1';
+  const GA_ID = 'G-RQNH94TGM9'; // IMPROX MEDIA's Google Analytics 4 property (carried over from the previous site)
+
+  type Choice = { analytics: boolean; ts: number };
+  const read = (): Choice | null => { try { const v = localStorage.getItem(KEY); return v ? (JSON.parse(v) as Choice) : null; } catch { return null; } };
+  const write = (c: Choice) => { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch { /* storage blocked: the choice simply lasts for this page view */ } };
+
+  const w = window as unknown as Record<string, unknown> & { dataLayer?: unknown[] };
+  function loadGA() {
+    if (w.__imxGa) return;
+    w.__imxGa = true;
+    delete w['ga-disable-' + GA_ID];
+    w.dataLayer = w.dataLayer || [];
+    const gtag = function (..._a: unknown[]) { (w.dataLayer as unknown[]).push(arguments); };
+    gtag('js', new Date());
+    gtag('config', GA_ID, { anonymize_ip: true });
+    const s = document.createElement('script');
+    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+  }
+  function stopGA() {
+    w['ga-disable-' + GA_ID] = true; // tells an already-loaded gtag to stop collecting
+    // remove Google Analytics cookies we may have set earlier
+    const host = location.hostname.split('.');
+    const domains = ['', location.hostname, '.' + location.hostname, ...(host.length > 2 ? ['.' + host.slice(-2).join('.')] : [])];
+    document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => n === '_ga' || n.startsWith('_ga_') || n === '_gid').forEach((n) => {
+      domains.forEach((d) => { document.cookie = `${n}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d ? '; domain=' + d : ''}`; });
+    });
+  }
+  const apply = (c: Choice) => (c.analytics ? loadGA() : stopGA());
+
+  const box = document.getElementById('consent')!;
+  const panel = document.getElementById('consent-panel')!;
+  const custom = box.querySelector<HTMLButtonElement>('[data-consent="customise"]')!;
+  const analytics = document.getElementById('consent-analytics') as HTMLInputElement;
+
+  const show = (focus = false) => { analytics.checked = !!read()?.analytics; box.hidden = false; if (focus) box.querySelector<HTMLElement>('[data-consent="reject"]')?.focus(); };
+  const hide = () => { box.hidden = true; panel.hidden = true; custom.setAttribute('aria-expanded', 'false'); };
+  const decide = (analyticsOn: boolean) => { const c = { analytics: analyticsOn, ts: Date.now() }; write(c); apply(c); hide(); };
+
+  box.addEventListener('click', (e) => {
+    const act = (e.target as HTMLElement).closest<HTMLElement>('[data-consent]')?.dataset.consent;
+    if (act === 'accept') decide(true);
+    else if (act === 'reject') decide(false);
+    else if (act === 'save') decide(analytics.checked);
+    else if (act === 'customise') { panel.hidden = !panel.hidden; custom.setAttribute('aria-expanded', String(!panel.hidden)); }
+  });
+  box.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Escape' && read()) hide(); });
+
+  // "Cookie settings" links anywhere on the site reopen the banner with the current choice shown.
+  document.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('[data-consent-open]')) { e.preventDefault(); show(true); panel.hidden = false; custom.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const saved = read();
+  if (saved) apply(saved); else show();
+</script>

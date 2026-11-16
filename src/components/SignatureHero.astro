@@ -1,0 +1,362 @@
+---
+// Signature hero: an interactive "channel studio". Self-contained so it can be swapped out without touching the rest of the page.
+// Every figure it draws comes from a small illustrative model. It is labelled as such and is NOT client data.
+const tabs = [
+  ['growth', 'Growth'],
+  ['packaging', 'Packaging'],
+  ['search', 'Search'],
+  ['retention', 'Retention'],
+];
+const efforts = [
+  ['1', 'Starter'],
+  ['2', 'Growth'],
+  ['3', 'Pro'],
+];
+---
+<div class="studio" id="player" data-studio>
+  <div class="studio-top">
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="tabs" role="tablist" aria-label="Channel views">
+      {tabs.map(([id, label], i) => (
+        <button role="tab" type="button" id={`tab-${id}`} data-tab={id} aria-selected={i === 0 ? 'true' : 'false'} aria-controls="studio-panel" tabindex={i === 0 ? 0 : -1}>{label}</button>
+      ))}
+    </div>
+    <span class="badge real" data-badge>Verified · YouTube Studio</span>
+  </div>
+
+  <div class="studio-body" id="studio-panel" role="tabpanel" aria-labelledby="tab-growth">
+    <div class="chart-col">
+    <div class="chart" data-chart>
+      <svg viewBox="0 0 640 300" role="img" aria-label="Line chart of Focus Plus monthly views, January 2024 to April 2025, compared with the average month before IMPROX MEDIA" data-svg>
+        <defs>
+          <linearGradient id="studio-area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#00c760" stop-opacity=".35"/><stop offset="1" stop-color="#00c760" stop-opacity="0"/></linearGradient>
+          <linearGradient id="studio-line" x1="0" x2="1"><stop offset="0" stop-color="#00c760"/><stop offset="1" stop-color="#b4e926"/></linearGradient>
+        </defs>
+        <g data-grid></g>
+        <path data-area fill="url(#studio-area)" />
+        <path data-base fill="none" stroke="rgba(240,240,240,.45)" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round" pathLength="1" />
+        <path data-imx fill="none" stroke="url(#studio-line)" stroke-width="3.5" stroke-linecap="round" pathLength="1" />
+      </svg>
+      <div class="legend" aria-hidden="true"><span><i class="l-base"></i><em data-leg-base>Average month before (2020 to 2023)</em></span><span><i class="l-imx"></i><em data-leg-imx>Focus Plus, actual monthly views</em></span></div>
+      {[0, 1, 2].map((n) => (<button type="button" class="hot" data-hot={n} aria-expanded="false" aria-controls="studio-pop"><span class="sr-only">Show stage {n + 1} details</span></button>))}
+    </div>
+    <div class="pop" id="studio-pop" role="region" aria-live="polite" hidden>
+      <b data-pop-title></b>
+      <p data-pop-text></p>
+    </div>
+    </div>
+
+    <aside class="panel">
+      <div class="metric"><small data-m-label>Channel index</small>
+        <div class="m-row"><div><em data-mb-label>Avg month before</em><b data-m-base>0.17M</b></div><div class="m-imx"><em data-mi-label>April 2025</em><b data-m-imx class="grad">19.0M</b></div></div>
+      </div>
+      <fieldset class="effort" data-effort>
+        <legend>Effort level</legend>
+        <div class="seg">
+          {efforts.map(([v, l]) => (<label><input type="radio" name="effort" value={v} checked={v === '2'} /><span>{l}</span></label>))}
+        </div>
+      </fieldset>
+      <p class="note" data-caption>Real results from one channel. Hover or tap the points. Switch to the other views for how each stage works.</p>
+      <p class="fine" data-fine>Real data: Focus Plus, managed with IMPROX MEDIA, YouTube Studio monthly reports, Jan 2024 to Apr 2025. $0 spent on ads. The effort level applies to the other views.</p>
+    </aside>
+  </div>
+</div>
+
+<style>
+  .studio{margin-top:60px;position:relative;border-radius:26px;border:1px solid var(--line);background:linear-gradient(180deg,#0e120e,#070907);overflow:hidden;box-shadow:0 60px 120px -40px rgba(0,199,96,.35);transform-origin:50% 0}
+  .studio-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 18px;border-bottom:1px solid var(--line)}
+  .dots{display:flex;gap:7px}.dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.18)}
+  .tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{padding:10px 16px;border-radius:99px;font:500 12px/1 var(--display);letter-spacing:.04em;color:var(--muted);white-space:nowrap;transition:color .3s,background .3s}
+  .tabs button:hover{color:var(--text)}
+  .tabs button[aria-selected="true"]{background:var(--green);color:var(--on-green)}
+  .badge{font:500 10px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--lime);border:1px dashed var(--lime);padding:6px 10px;border-radius:99px;white-space:nowrap}
+  .studio-body{display:grid;grid-template-columns:1.7fr 1fr}
+  .chart{position:relative;aspect-ratio:640/340;min-height:260px}
+  .chart svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+  .chart :global(.gl){stroke:rgba(255,255,255,.07);stroke-width:1}
+  .chart :global(.gt){fill:rgba(240,240,240,.45);font:11px var(--body)}
+  .legend{position:absolute;right:16px;top:14px;display:flex;gap:16px;font-size:12px;color:var(--muted)}
+  .legend i{display:inline-block;width:18px;height:3px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  .l-base{background:repeating-linear-gradient(90deg,rgba(240,240,240,.5) 0 4px,transparent 4px 8px)}
+  .l-imx{background:linear-gradient(90deg,var(--green),var(--lime))}
+  .hot{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:rgba(180,233,38,.18);display:grid;place-items:center;transition:transform .3s var(--ease)}
+  .hot::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(180,233,38,.6);animation:ping 2.4s infinite}
+  .hot:hover,.hot[aria-expanded="true"]{transform:scale(1.25)}
+  .hot[aria-expanded="true"]::before{animation:none;box-shadow:0 0 0 6px rgba(180,233,38,.25)}
+  @keyframes ping{70%{box-shadow:0 0 0 14px rgba(180,233,38,0)}100%{box-shadow:0 0 0 0 rgba(180,233,38,0)}}
+  .chart-col{min-width:0;display:flex;flex-direction:column}
+  .pop{margin:6px 18px 18px;min-height:92px;padding:16px 18px;border-radius:16px;background:rgba(0,199,96,.07);border:1px solid rgba(0,199,96,.35)}
+  /* keep the slot reserved while closed so the layout never jumps */
+  .pop[hidden]{display:block;visibility:hidden}
+  .pop b{font:500 13px/1.2 var(--display);color:var(--lime)}
+  .pop p{margin-top:6px;font-size:14.5px;line-height:1.45;color:rgba(240,240,240,.82)}
+  .panel{padding:22px 24px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:20px}
+  .metric small{display:block;color:var(--muted);font-size:13px;margin-bottom:12px}
+  .m-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .m-row em{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-bottom:6px}
+  .m-row b{font:500 clamp(28px,3.4vw,42px)/1 var(--display)}
+  .badge.real{color:var(--on-green);background:var(--lime);border-color:var(--lime)}
+  .legend em{font-style:normal}
+  .effort{border:0;transition:opacity .3s}
+  .effort.off{opacity:.38}
+  .effort legend{font-size:13px;color:var(--muted);margin-bottom:10px}
+  .seg{display:flex;border:1px solid var(--line);border-radius:99px;padding:4px;background:rgba(255,255,255,.03)}
+  .seg label{flex:1;position:relative;cursor:pointer}
+  .seg input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .seg span{display:block;text-align:center;padding:10px 8px;border-radius:99px;font:500 11px/1 var(--display);letter-spacing:.04em;color:var(--muted);transition:background .3s,color .3s}
+  .seg input:checked+span{background:rgba(0,199,96,.2);color:var(--text)}
+  .seg input:focus-visible+span{outline:2px solid var(--lime);outline-offset:2px}
+  .note{font-size:14.5px;line-height:1.5;color:rgba(240,240,240,.72)}
+  .fine{font-size:12px;color:var(--muted);margin-top:auto}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  @media(max-width:820px){
+    .studio-body{grid-template-columns:1fr}
+    .panel{border-left:0;border-top:1px solid var(--line)}
+    .studio-top{flex-wrap:wrap}
+    .badge{order:-1;margin-left:auto}
+    .dots{display:none}
+    .chart{aspect-ratio:auto;height:290px}
+    .legend{position:absolute;right:auto;left:12px;top:8px;gap:12px;font-size:11px}
+    .hot{width:38px;height:38px;margin:-19px 0 0 -19px}
+  }
+  @media (prefers-reduced-motion:reduce){.hot::before{animation:none}}
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { focusMonthly } from '../data/site.js';
+
+  const root = document.querySelector<HTMLElement>('[data-studio]');
+  if (root) init(root);
+
+  function init(root: HTMLElement) {
+    // Same dev-only escape hatch as the rest of the site; production always respects the visitor's setting.
+    const forceMotion = import.meta.env.DEV && location.search.includes('motion=on');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches && !forceMotion;
+
+    const N = 16, P = { l: 40, r: 14, t: 30, b: 30 };
+    let W = 640, H = 300; // replaced with the chart's real pixel size so SVG text never stretches
+    const sig = (x: number) => 1 / (1 + Math.exp(-x));
+    const arr = (f: (i: number) => number) => Array.from({ length: N }, (_, i) => f(i));
+
+    type Hot = { i: number; title: string; text: string };
+    type View = { label: string; ariaLabel: string; x: (i: number) => string; base: number[]; imx: (e: number) => number[]; hot: Hot[]; caption: string; yMin0?: boolean; real?: boolean; step?: number; fmt?: (x: number) => string; badge?: string; legBase?: string; legImx?: string; baseLabel?: string; imxLabel?: string; fine?: string };
+    const DEFAULT_META = { badge: 'Illustrative model', legBase: 'Without a plan', legImx: 'With the IMX process', baseLabel: 'Without a plan', imxLabel: 'With the IMX process', fine: 'Illustrative model for explanation only. Not a forecast and not client results.' };
+    const months = (i: number) => (i % 3 === 0 || i === N - 1 ? `M${i + 1}` : '');
+    const video = (i: number) => (i % 3 === 0 || i === N - 1 ? `${Math.round((i / (N - 1)) * 100)}%` : '');
+
+    const VIEWS: Record<string, View> = {
+      // REAL DATA: Focus Plus monthly views from YouTube Studio reports (see /work/focus-plus). The baseline is the channel's
+      // average month before IMPROX MEDIA (about 174K views). Effort level does not apply to this view.
+      growth: {
+        real: true,
+        label: 'Focus Plus monthly views, in millions',
+        ariaLabel: 'Bar-free line chart of real Focus Plus monthly views from January 2024 (0.5 million) to April 2025 (19.0 million), against an average month of about 0.17 million before IMPROX MEDIA',
+        x: (i: number) => (i % 3 === 0 || i === N - 1 ? focusMonthly[i][0] : ''),
+        yMin0: true, step: 6,
+        fmt: (x: number) => (x < 1 ? x.toFixed(2) : x.toFixed(1)) + 'M',
+        badge: 'Verified · YouTube Studio',
+        legBase: 'Average month before (2020 to 2023)', legImx: 'Focus Plus, actual monthly views',
+        baseLabel: 'Avg month before', imxLabel: 'April 2025',
+        fine: 'Real data: Focus Plus, managed with IMPROX MEDIA, YouTube Studio monthly reports, Jan 2024 to Apr 2025. $0 spent on ads. The effort level applies to the other views.',
+        base: arr(() => 0.174),
+        imx: () => focusMonthly.map(([, v]) => v as number),
+        hot: [
+          { i: 0, title: 'Jan 2024 · First month with IMPROX MEDIA', text: '470K views. The channel averaged about 174K views a month in the four years before.' },
+          { i: 5, title: 'Jun 2024 · 12.0M views in one month', text: 'The 2024 peak: 473.2K watch hours and +52.4K net subscribers, from YouTube Studio.' },
+          { i: 15, title: 'Apr 2025 · 19.0M views, the highest month', text: 'Sixteen months in, 14 of 16 months were above 1M views. See the full case study.' },
+        ],
+        caption: 'Real results from one channel. Hover or tap the points. Switch to the other views for how each stage works.',
+      },
+      packaging: {
+        label: 'Click-through index (starts at 100)',
+        ariaLabel: 'Illustrative click-through rate with and without tested titles and thumbnails',
+        x: months,
+        base: arr((i) => 100 + Math.sin(i * 1.3) * 2),
+        imx: (e) => arr((i) => 100 + Math.sin(i * 1.3) * 2 + e * 11 * sig((i - 2.5) * 1.1)),
+        hot: [
+          { i: 2, title: 'Hook and title tests', text: 'Several title and hook options per video, so we learn what your audience actually clicks.' },
+          { i: 6, title: 'Thumbnail variations', text: 'Design variants share one clear subject and promise, and are tested against each other.' },
+          { i: 10, title: 'Patterns you can reuse', text: 'Winning formats are documented, so every new upload starts from what already works.' },
+        ],
+        caption: 'Packaging view: the click is decided by the title and thumbnail, so they get tested.',
+      },
+      search: {
+        label: 'Search impressions index (starts at 100)',
+        ariaLabel: 'Illustrative search impressions with and without YouTube SEO',
+        x: months,
+        base: arr((i) => 100 + i * 2.2),
+        imx: (e) => arr((i) => 100 + i * 2.2 + e * 0.3 * i * (4 + i * 0.8)),
+        hot: [
+          { i: 1, title: 'Keyword and gap research', text: 'We find the questions your audience searches and where competitors leave gaps.' },
+          { i: 5, title: 'Metadata and playlists', text: 'Titles, descriptions and playlists are structured so each video supports the others.' },
+          { i: 10, title: 'Back-catalogue refresh', text: 'Older videos get updated metadata, so past work keeps earning discovery.' },
+        ],
+        caption: 'Search view: be the answer when your audience looks for one.',
+      },
+      retention: {
+        label: 'Viewers still watching (starts at 100)',
+        ariaLabel: 'Illustrative audience retention through a video with and without retention-focused editing',
+        x: video,
+        yMin0: true,
+        base: arr((i) => 100 * Math.exp(-i * 0.22)),
+        imx: (e) => arr((i) => 100 * Math.exp(-i * (0.23 - e * 0.04)) + (i > 0 && i < 4 ? e * 3 : 0)),
+        hot: [
+          { i: 1, title: 'The first seconds', text: 'A sharper hook that confirms the promise of the title keeps viewers past the opening.' },
+          { i: 5, title: 'Mid-video pacing', text: 'Pattern changes, graphics and sound design re-engage viewers where attention usually dips.' },
+          { i: 10, title: 'Payoff and next video', text: 'A clear ending sends viewers to the next video instead of away from your channel.' },
+        ],
+        caption: 'Retention view: editing choices decide how many viewers stay to the end.',
+      },
+    };
+
+    const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+    const svg = $<SVGSVGElement>('[data-svg]');
+    const grid = $<SVGGElement>('[data-grid]');
+    const pBase = $<SVGPathElement>('[data-base]');
+    const pImx = $<SVGPathElement>('[data-imx]');
+    const pArea = $<SVGPathElement>('[data-area]');
+    const hots = [...root.querySelectorAll<HTMLButtonElement>('[data-hot]')];
+    const pop = $<HTMLElement>('[data-pop-title]').parentElement as HTMLElement;
+    const popTitle = $<HTMLElement>('[data-pop-title]');
+    const popText = $<HTMLElement>('[data-pop-text]');
+    const mBase = $<HTMLElement>('[data-m-base]');
+    const mImx = $<HTMLElement>('[data-m-imx]');
+    const mLabel = $<HTMLElement>('[data-m-label]');
+    const caption = $<HTMLElement>('[data-caption]');
+    const tabEls = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panel = $<HTMLElement>('#studio-panel');
+
+    let view = 'growth';
+    let effort = 2;
+    let cur = { b: VIEWS.growth.base.slice(), m: VIEWS.growth.imx(effort) };
+
+    const smooth = (p: number[][]) => {
+      let d = `M${p[0][0]},${p[0][1]}`;
+      for (let i = 0; i < p.length - 1; i++) {
+        const p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2;
+        d += `C${p1[0] + (p2[0] - p0[0]) / 6},${p1[1] + (p2[1] - p0[1]) / 6},${p2[0] - (p3[0] - p1[0]) / 6},${p2[1] - (p3[1] - p1[1]) / 6},${p2[0]},${p2[1]}`;
+      }
+      return d;
+    };
+
+    const chartEl = $<HTMLElement>('[data-chart]');
+    function render() {
+      const box = chartEl.getBoundingClientRect();
+      if (box.width > 0 && box.height > 0) { W = box.width; H = box.height; svg.setAttribute('viewBox', `0 0 ${W} ${H}`); }
+      const v = VIEWS[view];
+      const all = cur.b.concat(cur.m);
+      const hi = Math.max(...all), lo = v.yMin0 ? 0 : Math.min(...all);
+      const step = v.step ?? 10;
+      const yMax = Math.ceil((hi * 1.08) / step) * step, yMin = v.yMin0 ? 0 : Math.floor((lo * 0.9) / 10) * 10;
+      const X = (i: number) => P.l + (i / (N - 1)) * (W - P.l - P.r);
+      const Y = (val: number) => P.t + (1 - (val - yMin) / (yMax - yMin || 1)) * (H - P.t - P.b);
+      const pb = cur.b.map((val, i) => [X(i), Y(val)]);
+      const pm = cur.m.map((val, i) => [X(i), Y(val)]);
+      pBase.setAttribute('d', smooth(pb));
+      pImx.setAttribute('d', smooth(pm));
+      pArea.setAttribute('d', `${smooth(pm)}L${X(N - 1)},${H - P.b}L${X(0)},${H - P.b}Z`);
+
+      let g = '';
+      for (let k = 0; k <= 3; k++) {
+        const val = yMin + ((yMax - yMin) * k) / 3, y = Y(val);
+        g += `<line class="gl" x1="${P.l}" x2="${W - P.r}" y1="${y}" y2="${y}"/><text class="gt" x="${P.l - 8}" y="${y + 4}" text-anchor="end">${Math.round(val)}</text>`;
+      }
+      for (let i = 0; i < N; i++) { const t = v.x(i); if (t) g += `<text class="gt" x="${X(i)}" y="${H - 8}" text-anchor="${i === N - 1 ? 'end' : 'middle'}">${t}</text>`; }
+      grid.innerHTML = g;
+
+      hots.forEach((h, n) => {
+        const spec = v.hot[n];
+        h.style.left = `${(X(spec.i) / W) * 100}%`;
+        h.style.top = `${(Y(cur.m[spec.i]) / H) * 100}%`;
+      });
+      const f = v.fmt ?? ((x: number) => String(Math.round(x)));
+      mBase.textContent = f(cur.b[N - 1]);
+      mImx.textContent = f(cur.m[N - 1]);
+    }
+
+    let tween: gsap.core.Tween | null = null;
+    function go(targetB: number[], targetM: number[]) {
+      tween?.kill();
+      if (reduce) { cur = { b: targetB, m: targetM }; render(); return; }
+      const fb = cur.b.slice(), fm = cur.m.slice(), s = { t: 0 };
+      tween = gsap.to(s, {
+        t: 1, duration: 0.9, ease: 'power3.inOut',
+        onUpdate: () => { cur = { b: fb.map((v, i) => v + (targetB[i] - v) * s.t), m: fm.map((v, i) => v + (targetM[i] - v) * s.t) }; render(); },
+        onComplete: () => { cur = { b: targetB, m: targetM }; render(); },
+      });
+    }
+
+    function closePop() { pop.hidden = true; hots.forEach((h) => h.setAttribute('aria-expanded', 'false')); }
+    function openPop(n: number) {
+      const spec = VIEWS[view].hot[n];
+      popTitle.textContent = spec.title; popText.textContent = spec.text; pop.hidden = false;
+      hots.forEach((h, k) => h.setAttribute('aria-expanded', String(k === n)));
+      if (!reduce) gsap.fromTo(pop, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' });
+    }
+    hots.forEach((h, n) => h.addEventListener('click', () => (h.getAttribute('aria-expanded') === 'true' ? closePop() : openPop(n))));
+    root.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Escape') closePop(); });
+
+    // Labels, badge and fine print change with the view: real data is labelled as verified, models as illustrative.
+    const qs = (s: string) => root.querySelector<HTMLElement>(s)!;
+    function applyMeta(v: View) {
+      const m = { ...DEFAULT_META, ...v };
+      qs('[data-badge]').textContent = m.badge;
+      qs('[data-badge]').classList.toggle('real', !!v.real);
+      qs('[data-leg-base]').textContent = m.legBase; qs('[data-leg-imx]').textContent = m.legImx;
+      qs('[data-mb-label]').textContent = m.baseLabel; qs('[data-mi-label]').textContent = m.imxLabel;
+      qs('[data-fine]').textContent = m.fine;
+      mLabel.textContent = v.label; caption.textContent = v.caption; svg.setAttribute('aria-label', v.ariaLabel);
+      const fs = root.querySelector<HTMLFieldSetElement>('[data-effort]')!;
+      fs.disabled = !!v.real; fs.classList.toggle('off', !!v.real);
+    }
+
+    function setView(next: string, focus = false) {
+      if (next === view) return;
+      view = next; closePop();
+      tabEls.forEach((t) => { const on = t.dataset.tab === next; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; if (on) { panel.setAttribute('aria-labelledby', t.id); if (focus) t.focus(); } });
+      const v = VIEWS[next];
+      applyMeta(v);
+      go(v.base.slice(), v.imx(effort));
+      if (!reduce) setTimeout(() => openPop(0), 950);
+    }
+    tabEls.forEach((t, i) => {
+      t.addEventListener('click', () => setView(t.dataset.tab!));
+      t.addEventListener('keydown', (e) => {
+        const k = (e as KeyboardEvent).key; let j = -1;
+        if (k === 'ArrowRight') j = (i + 1) % tabEls.length; else if (k === 'ArrowLeft') j = (i - 1 + tabEls.length) % tabEls.length;
+        if (j >= 0) { e.preventDefault(); setView(tabEls[j].dataset.tab!, true); }
+      });
+    });
+    root.querySelectorAll<HTMLInputElement>('input[name="effort"]').forEach((r) => r.addEventListener('change', () => { effort = +r.value; go(cur.b.slice(), VIEWS[view].imx(effort)); }));
+
+    // initial paint
+    applyMeta(VIEWS.growth);
+    render();
+    new ResizeObserver(() => { if (!tween || !tween.isActive()) render(); }).observe(chartEl);
+    if (!reduce) {
+      [pBase, pImx].forEach((p) => { p.style.strokeDasharray = '1'; p.style.strokeDashoffset = '1'; });
+      pBase.style.strokeDasharray = ''; // keep the dashed look for the baseline after the draw-in
+      gsap.set(pBase, { opacity: 0 });
+      gsap.set(pArea, { opacity: 0 }); gsap.set(hots, { scale: 0 });
+      gsap.timeline({ delay: 0.5 })
+        .to(pBase, { opacity: 1, duration: 0.8 })
+        .to(pImx, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut' }, '<0.1')
+        .to(pArea, { opacity: 1, duration: 1 }, '-=0.9')
+        .to(hots, { scale: 1, duration: 0.6, ease: 'back.out(2)', stagger: 0.15 }, '-=0.6')
+        .add(() => { pImx.style.strokeDasharray = ''; pImx.style.strokeDashoffset = ''; openPop(1); });
+
+      // subtle pointer tilt on fine pointers
+      if (matchMedia('(pointer:fine)').matches) {
+        const rx = gsap.quickTo(root, 'rotationX', { duration: 0.8, ease: 'power3' }), ry = gsap.quickTo(root, 'rotationY', { duration: 0.8, ease: 'power3' });
+        gsap.set(root, { transformPerspective: 1400 });
+        root.addEventListener('pointermove', (e) => { const r = root.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - 0.5) * 4); rx(-((e.clientY - r.top) / r.height - 0.5) * 3); });
+        root.addEventListener('pointerleave', () => { rx(0); ry(0); });
+      }
+    } else {
+      openPop(1);
+    }
+  }
+</script>

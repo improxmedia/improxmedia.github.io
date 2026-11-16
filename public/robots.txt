@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# AI answer and training crawlers are allowed on the public site.
+# Sitemap for search engines and AI crawlers:
+Sitemap: https://improxmedia.com/sitemap-index.xml

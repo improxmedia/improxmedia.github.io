@@ -1,0 +1,27 @@
+---
+import Page from '../layouts/Page.astro';
+const rows = [
+  ['imx-consent-v1', 'This website (browser storage)', 'Remembers your privacy choice so we do not ask on every visit.', 'Strictly necessary', 'Until you clear your browser data or change your choice'],
+  ['_ga, _ga_G-RQNH94TGM9', 'Google Analytics 4', 'Counts visits and shows which pages are used, so we can improve the site.', 'Analytics (only with your consent)', 'Typically up to 2 years'],
+];
+---
+<Page title="Cookie Policy" description="Which cookies and similar storage IMPROX MEDIA's website uses, and how to change your choice." eyebrow="Legal" heading="Cookie Policy" cta={false}>
+  <section style="padding-top:0">
+    <div class="wrap prose">
+      <p>Last updated: 16 November 2026</p>
+      <h2>Our approach</h2>
+      <p>We keep this site light. Only essential storage runs by default. Optional analytics runs only after you accept it, and you can change your mind at any time using <button type="button" data-consent-open style="color:var(--lime);text-decoration:underline;text-underline-offset:3px;font:inherit">Cookie settings</button>. We do not use advertising or marketing cookies on this site.</p>
+      <h2>What we use</h2>
+      <div class="table-scroll"><table class="compare-table">
+        <thead><tr><th scope="col">Name</th><th scope="col">Set by</th><th scope="col">Purpose</th><th scope="col">Type</th><th scope="col">Duration</th></tr></thead>
+        <tbody>{rows.map((r) => <tr><th scope="row" style="font:400 15px/1.4 var(--body);letter-spacing:0;text-transform:none;color:var(--text)">{r[0]}</th>{r.slice(1).map((c) => <td style="text-align:left;font-size:15px">{c}</td>)}</tr>)}</tbody>
+      </table></div>
+      <h2>Fonts and links</h2>
+      <p>Fonts are served from this website, so no request is sent to a font provider when you visit. Links to YouTube, LinkedIn, Instagram and Facebook take you to those services, which have their own cookie and privacy policies.</p>
+      <h2>Changing your choice</h2>
+      <p>Use <button type="button" data-consent-open style="color:var(--lime);text-decoration:underline;text-underline-offset:3px;font:inherit">Cookie settings</button> in the footer at any time to accept or withdraw analytics. You can also delete cookies in your browser settings.</p>
+      <h2>Questions</h2>
+      <p>See our <a href="/privacy" style="color:var(--lime)">Privacy Policy</a>, or email <a href="mailto:Connect@improxmedia.com" style="color:var(--lime)">Connect@improxmedia.com</a>.</p>
+    </div>
+  </section>
+</Page>

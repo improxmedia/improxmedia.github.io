@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.astro
+.DS_Store
+
+# Internal only: never publish
+reference/
+screenshots/
+testimonial-requests.md
+.claude/
+.astro/
+public/brand/imx-logo-original.png

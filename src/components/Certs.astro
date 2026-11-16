@@ -1,0 +1,13 @@
+---
+// Business-level credentials: certifications held by the IMPROX MEDIA team.
+import { teamCerts } from '../data/site.js';
+const { compact = false } = Astro.props;
+---
+<div class={'certs-strip' + (compact ? ' compact' : '')}>
+  <small>Certified expertise across our team</small>
+  <ul>
+    {teamCerts.map(([name, issuer, icon]) => (
+      <li><img src={icon} alt="" width="30" height="30" loading="lazy" decoding="async" /><span><b>{name}</b>{!compact && <em>{issuer}</em>}</span></li>
+    ))}
+  </ul>
+</div>

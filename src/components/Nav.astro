@@ -1,0 +1,22 @@
+---
+// book: where the primary CTA points. Home keeps its own on-page form (#book); every other page goes to /contact.
+const { book = '/contact#book' } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const links = [
+  ['Services', '/services'],
+  ['Work', '/work'],
+  ['Pricing', '/pricing'],
+  ['About', '/about'],
+  ['Insights', '/insights'],
+];
+---
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="IMPROX MEDIA home"><img src="/brand/imx-logo.png" alt="IMPROX MEDIA" width="118" height="40" /></a>
+    <nav aria-label="Primary"><ul>
+      {links.map(([t, h]) => <li><a href={h} aria-current={path === h || path.startsWith(h + '/') ? 'page' : undefined}>{t}</a></li>)}
+    </ul></nav>
+    <a class="btn btn-primary" href={book} data-magnetic>Book free audit</a>
+  </div>
+</header>

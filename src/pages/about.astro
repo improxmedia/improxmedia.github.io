@@ -1,0 +1,59 @@
+---
+import Page from '../layouts/Page.astro';
+import { founder } from '../data/site.js';
+import Certs from '../components/Certs.astro';
+const values = [
+  ['Data before opinions', 'We decide with retention, click-through and search data, and we show you the same numbers we see.'],
+  ['Craft you can feel', 'Edits, thumbnails and scripts are made by specialists, then reviewed against your brand.'],
+  ['Honest about results', 'YouTube compounds over time. We never promise views, and we report what happened every month.'],
+  ['Built for the long run', 'We plan for sustainable channels, not one viral upload.'],
+];
+---
+<Page title="About" description="IMPROX MEDIA is a global YouTube growth agency founded in 2023 by Aditya Knox, working with creators and brands across the USA, Canada, the UK, Ireland, India and Europe." eyebrow="About us" heading="A growth team for YouTube, nothing else." lead="IMPROX MEDIA helps creators and brands turn YouTube into a steady source of views, subscribers and customers.">
+  <section>
+    <div class="wrap two-col">
+      <div>
+        <h2 class="reveal" style="font-size:clamp(26px,3.4vw,42px)">Our story</h2>
+        <p class="lead reveal" style="margin-top:20px">IMPROX MEDIA is a global YouTube growth and strategy company, founded in 2023, supporting creators and brands across international markets. We help channels turn reach into subscribers and audiences into engaged, high-retention communities.</p>
+        <p class="lead reveal" style="margin-top:18px">Our approach is structured, data-led and execution-focused, built for creators, B2B and B2C brands that value sustainable growth and long-term channel equity. A cross-border team of 20+ editors, designers and media buyers delivers it.</p>
+      </div>
+      <div class="cards-2">
+        <div class="card reveal"><div class="market-card"><img src="/flags/us.svg" alt="" width="36" height="26" /><h3>United States</h3></div><p>Headquarters in Savannah, GA. Client work across the USA.</p></div>
+        <div class="card reveal"><div class="market-card"><img src="/flags/ca.svg" alt="" width="36" height="26" /><h3>Canada</h3></div><p>Serving clients across Canada</p></div>
+        <div class="card reveal"><div class="market-card"><img src="/flags/gb.svg" alt="" width="36" height="26" /><h3>United Kingdom</h3></div><p>Serving creators and brands across the UK</p></div>
+        <div class="card reveal"><div class="market-card"><img src="/flags/ie.svg" alt="" width="36" height="26" /><h3>Ireland and Europe</h3></div><p>Client work in Dublin and across Europe</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">Leadership</span>
+      <h2 class="reveal" style="max-width:20ch">Led by <span class="grad">{founder.name}.</span></h2>
+      <div class="founder-card reveal" style="margin-top:44px">
+        <img src={founder.photo} alt={`${founder.name}, ${founder.role} of IMPROX MEDIA`} width="260" height="260" loading="lazy" decoding="async" />
+        <div>
+          <h3>{founder.name}</h3>
+          <div class="role">{founder.role}</div>
+          {founder.bio.map((p) => <p>{p}</p>)}
+          <p style="margin-top:18px"><a href="https://www.linkedin.com/company/improxmedia" target="_blank" rel="noopener noreferrer" style="color:var(--lime)">Follow IMPROX MEDIA on LinkedIn →</a></p>
+        </div>
+      </div>
+      <h3 class="reveal" style="margin:50px 0 16px">Track record</h3>
+      <ul class="bullets reveal">{founder.track.map((t) => <li>{t}</li>)}</ul>
+      <p class="proof-note reveal" style="text-align:left;margin-left:0">The founder's figures cover all social platforms over 7 years, including work before IMPROX MEDIA was founded in 2023.</p>
+      <Certs />
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">How we work</span>
+      <h2 class="reveal" style="max-width:18ch">What we <span class="grad">stand for.</span></h2>
+      
+      <div class="cards-2" style="margin-top:44px">
+        {values.map(([t, d]) => (<div class="card reveal"><h3>{t}</h3><p>{d}</p></div>))}
+      </div>
+    </div>
+  </section>
+</Page>

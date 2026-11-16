@@ -1,0 +1,26 @@
+---
+import Page from '../layouts/Page.astro';
+import { contact } from '../data/site.js';
+---
+<Page title="Terms of Service" description="Terms for using the IMPROX MEDIA website and services." eyebrow="Legal" heading="Terms of Service" cta={false}>
+  <section style="padding-top:0">
+    <div class="wrap prose">
+      <p>Last updated: 16 November 2026</p>
+
+      <h2>1. Using this website</h2>
+      <p>Use this website lawfully and in good faith. Do not try to disrupt it or reach areas you are not authorised to use. Content here is provided for general information and is not advice tailored to your situation.</p>
+
+      <h2>2. Services and agreements</h2>
+      <p>Client work is governed by a separate written agreement or statement of work, which takes precedence over anything on this website.</p>
+
+      <h2>3. No guarantee of results</h2>
+      <p>YouTube performance depends on many factors outside any agency's control, including the platform itself. Case studies describe results for the channels named, measured as stated on each page, and past results do not guarantee future ones.</p>
+
+      <h2>4. Intellectual property</h2>
+      <p>The content, design and logos of this website belong to IMPROX MEDIA LLC or its licensors. Brand logos and channel names shown on this site belong to their owners and are used only to identify them. No endorsement is implied.</p>
+
+      <h2>5. Contact</h2>
+      <p>Questions about these terms: <a href={`mailto:${contact.email}`} style="color:var(--lime)">{contact.email}</a>.</p>
+    </div>
+  </section>
+</Page>

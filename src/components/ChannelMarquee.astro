@@ -1,0 +1,38 @@
+---
+// Real channels we have worked on: two lanes of cards that drift in opposite directions, with animated totals.
+// Motion pauses on hover or focus. With reduced motion the lanes become a static, wrapped grid.
+import { channels, channelTotals, channelsAsOf } from '../data/site.js';
+const half = Math.ceil(channels.length / 2);
+const lanes = [channels.slice(0, half), channels.slice(half)];
+const subsM = Math.floor((channelTotals.subscribers / 1e6) * 10) / 10; // rounded down so we never overstate
+const viewsB = Math.floor((channelTotals.views / 1e9) * 10) / 10;
+---
+<section id="channels" class="chan-sec">
+  <div class="wrap">
+    <span class="eyebrow">Real channels</span>
+    <h2 class="reveal" style="max-width:20ch">Channels we have <span class="grad">worked on.</span></h2>
+    <p class="lead reveal" style="margin-top:18px">Public YouTube channels you can open and check yourself.</p>
+    <div class="chan-stats">
+      <div class="num reveal"><b class="grad"><span data-count={viewsB} data-decimals="1" data-suffix="B+">0</span></b><p>Combined public views</p></div>
+      <div class="num reveal"><b class="grad"><span data-count={subsM} data-decimals="1" data-suffix="M+">0</span></b><p>Combined subscribers</p></div>
+      <div class="num reveal"><b class="grad"><span data-count={channelTotals.count} data-suffix="">0</span></b><p>Channels across the USA, Canada, the UK and India</p></div>
+    </div>
+  </div>
+  <div class="chan-marquee" role="group" aria-label="Channels we have worked on">
+    {lanes.map((lane, r) => (
+      <div class="chan-lane">
+        <div class={'chan-row' + (r % 2 ? ' rev' : '')}>
+          {[0, 1].map((dup) => lane.map(([name, img, subs, views, url]) => (
+            <a class="chan-card" href={url} target="_blank" rel="noopener noreferrer" aria-hidden={dup ? 'true' : undefined} tabindex={dup ? -1 : undefined} data-dup={dup ? '' : undefined}>
+              <img src={img} alt="" width="56" height="56" loading="lazy" decoding="async" />
+              <span><b>{name}</b><i>{subs}</i><em>{views}</em></span>
+            </a>
+          )))}
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="wrap">
+    <p class="proof-note reveal">Public YouTube totals checked {channelsAsOf}; KHABAR 2DAY shows figures recorded on 15 Nov 2026. <a href="/work#channels">See all channels</a></p>
+  </div>
+</section>
