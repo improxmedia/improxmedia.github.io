@@ -7,7 +7,7 @@ export function getStaticPaths() {
 const { s } = Astro.props;
 const others = services.filter((x) => x.slug !== s.slug);
 ---
-<Page title={`${s.title} | Services`} description={s.short} eyebrow="Service" heading={s.title} lead={s.tagline} crumbLabel={s.title} schema={[{ "@context": "https://schema.org", "@type": "Service", name: s.title, description: s.short, provider: { "@id": "https://improxmedia.com/#organization" }, areaServed: ["United States", "Canada", "United Kingdom", "Ireland", "India", "Europe"], serviceType: "YouTube growth", url: "https://improxmedia.com/services/" + s.slug }, { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: s.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }]}>
+<Page title={`${s.title} | Services`} description={s.short} eyebrow="Service" heading={s.title} lead={s.tagline} crumbLabel={s.title} schema={[{ "@context": "https://schema.org", "@type": "Service", name: s.title, description: s.short, provider: { "@id": "https://improxmedia.github.io/#organization" }, areaServed: ["United States", "Canada", "United Kingdom", "Ireland", "India", "Europe"], serviceType: "YouTube growth", url: "https://improxmedia.github.io/services/" + s.slug }, { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: s.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }]}>
   <section>
     <div class="wrap two-col">
       <div>

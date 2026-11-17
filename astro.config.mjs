@@ -1,10 +1,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Production domain. Not live yet: improxmedia.com currently shows an expired-domain page.
-// Canonical URLs and the sitemap use it on purpose, and work once the domain is renewed and pointed at the host.
+// Live address: GitHub Pages for the improxmedia account. When a custom domain is connected, change this value to that domain.
 export default defineConfig({
-  site: 'https://improxmedia.com',
+  site: 'https://improxmedia.github.io',
   trailingSlash: 'never',
   devToolbar: { enabled: false },
   integrations: [sitemap({ filter: (page) => !page.includes('/404') })],

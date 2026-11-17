@@ -3,4 +3,4 @@ Allow: /
 
 # AI answer and training crawlers are allowed on the public site.
 # Sitemap for search engines and AI crawlers:
-Sitemap: https://improxmedia.com/sitemap-index.xml
+Sitemap: https://improxmedia.github.io/sitemap-index.xml
