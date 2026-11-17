@@ -145,23 +145,17 @@ export const cases = [
     points: ['A cross-border team of 20+ editors, designers and media buyers', 'A/B thumbnail testing and keyword clustering at scale'],
   },
   {
-    id: 'tsp', by: 'founder', topic: 'Growth', title: 'TSP channel (ISKCON media): +295% views',
-    kpis: [['769.5K', 'views, up from 194.8K'], ['+113%', 'estimated revenue']],
-    points: ['Led by our founder as Media Manager, with a 7-member production team', 'Comparison of two 28-day YouTube Studio windows in 2025; click-through rate 4.2% to 6.1% (single-day readings)'],
-  },
-  {
     id: 'ai-system', by: 'company', topic: 'Operations', title: 'Self-hosted agency AI system',
     kpis: [['End to end', 'research, outreach, content, social']],
     points: ['Self-hosted agents connected to tools through MCP connectors', 'Automated prospecting, outreach sequencing and content production, with human review before anything client-facing'],
   },
 ];
 
-export const byLabel = { company: 'IMPROX MEDIA', founder: 'Founder-led, outside IMPROX MEDIA' };
+export const byLabel = { company: 'IMPROX MEDIA' };
 
 export const founder = {
   name: 'Aditya Knox',
   role: 'Founder & Chief Marketing Officer',
-  photo: '/team/aditya-knox.webp',
   bio: [
     'Aditya has spent 7 years growing YouTube channels and running performance marketing, starting with his own channel in 2017 and founding IMPROX MEDIA in 2023.',
     'He leads a cross-border team of 20+ editors, designers and media buyers, and designed the self-hosted AI automation stack the agency runs on.',
@@ -210,7 +204,6 @@ export const channelsAsOf = '16 Nov 2026';
 export const channels = [
   ['Kings and Generals', '/channels/kings-and-generals.webp', '4.22M subscribers', '1.11B views', 'https://www.youtube.com/@KingsandGenerals', 4220000, 1108504192],
   ['Focus Plus', '/channels/focus-plus.webp', '562K subscribers', '487.2M views', 'https://www.youtube.com/@FocusPlusnews', 562000, 487169887],
-  ['Travelling Sankirtan Party', '/channels/tsp.webp', '522K subscribers', '184.2M views', 'https://www.youtube.com/@travellingsankirtanparty', 522000, 184213085],
   ['MagicGum', '/channels/magicgum.webp', '501K subscribers', '43.5M views', 'https://www.youtube.com/@MagicGum', 501000, 43456055],
   ['Brooke Miccio', '/channels/brooke-miccio.webp', '460K subscribers', '70.4M views', 'https://www.youtube.com/@brookemiccio', 460000, 70378204],
   ['Shreya Rawat', '/channels/shreya-rawat.webp', '276K subscribers', '28.8M views', 'https://www.youtube.com/@ShreyaRawat', 276000, 28770638],

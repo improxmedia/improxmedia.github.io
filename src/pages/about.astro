@@ -9,7 +9,7 @@ const values = [
   ['Built for the long run', 'We plan for sustainable channels, not one viral upload.'],
 ];
 ---
-<Page title="About" description="IMPROX MEDIA is a global YouTube growth agency founded in 2023 by Aditya Knox, working with creators and brands across the USA, Canada, the UK, Ireland, India and Europe." eyebrow="About us" heading="A growth team for YouTube, nothing else." lead="IMPROX MEDIA helps creators and brands turn YouTube into a steady source of views, subscribers and customers.">
+<Page title="About" description="IMPROX MEDIA is a global YouTube growth agency founded in 2023, working with creators and brands across the USA, Canada, the UK, Ireland, India and Europe." eyebrow="About us" heading="A growth team for YouTube, nothing else." lead="IMPROX MEDIA helps creators and brands turn YouTube into a steady source of views, subscribers and customers.">
   <section>
     <div class="wrap two-col">
       <div>
@@ -29,19 +29,10 @@ const values = [
   <section class="alt">
     <div class="wrap">
       <span class="eyebrow">Leadership</span>
-      <h2 class="reveal" style="max-width:20ch">Led by <span class="grad">{founder.name}.</span></h2>
-      <div class="founder-card reveal" style="margin-top:44px">
-        <img src={founder.photo} alt={`${founder.name}, ${founder.role} of IMPROX MEDIA`} width="260" height="260" loading="lazy" decoding="async" />
-        <div>
-          <h3>{founder.name}</h3>
-          <div class="role">{founder.role}</div>
-          {founder.bio.map((p) => <p>{p}</p>)}
-          <p style="margin-top:18px"><a href="https://www.linkedin.com/company/improxmedia" target="_blank" rel="noopener noreferrer" style="color:var(--lime)">Follow IMPROX MEDIA on LinkedIn →</a></p>
-        </div>
+      <h2 class="reveal" style="max-width:20ch">Our <span class="grad">leadership.</span></h2>
+      <div class="cards-2" style="margin-top:44px">
+        <div class="card reveal"><h3>{founder.name}</h3><p>{founder.role}</p></div>
       </div>
-      <h3 class="reveal" style="margin:50px 0 16px">Track record</h3>
-      <ul class="bullets reveal">{founder.track.map((t) => <li>{t}</li>)}</ul>
-      <p class="proof-note reveal" style="text-align:left;margin-left:0">The founder's figures cover all social platforms over 7 years, including work before IMPROX MEDIA was founded in 2023.</p>
       <Certs />
     </div>
   </section>

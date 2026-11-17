@@ -8,7 +8,7 @@ import BrandStrip from '../components/BrandStrip.astro';
 import Certs from '../components/Certs.astro';
 import ChannelMarquee from '../components/ChannelMarquee.astro';
 import Testimonials from '../components/Testimonials.astro';
-import { services as serviceData, cases, byLabel, founder, contact, socials } from '../data/site.js';
+import { services as serviceData, cases, byLabel, contact, socials } from '../data/site.js';
 const homeCases = cases.slice(0, 3);
 // Structured data so search engines and AI assistants can read who and where the company is.
 const orgJsonLd = {
@@ -26,8 +26,6 @@ const orgJsonLd = {
   telephone: contact.phoneUS,
   address: { '@type': 'PostalAddress', streetAddress: '12 Wood Duck Dr', addressLocality: 'Savannah', addressRegion: 'GA', postalCode: '31405', addressCountry: 'US' },
   areaServed: ['United States', 'Canada', 'United Kingdom', 'Ireland', 'India', 'Europe'],
-  founder: { '@type': 'Person', '@id': 'https://improxmedia.github.io/about#founder', name: founder.name, jobTitle: founder.role, worksFor: { '@id': 'https://improxmedia.github.io/#organization' } },
-  knowsAbout: ['YouTube growth', 'YouTube SEO', 'Thumbnail click-through optimisation', 'Audience retention', 'YouTube monetisation', 'Paid social advertising'],
   sameAs: socials.map(([, u]) => u),
 };
 // All values marked TODO are placeholders to confirm with IMPROX MEDIA before launch.
@@ -78,12 +76,12 @@ const faqs = [
         <BrandStrip />
         <Certs compact />
         <div class="nums">
-          <div class="num reveal"><b class="grad"><span data-count="10" data-suffix="B+">0</span></b><p>Lifetime views over 7 years, for 30+ brands and channels <sup>1</sup></p></div>
+          <div class="num reveal"><b class="grad"><span data-count="1" data-suffix="B+">0</span></b><p>Organic views across 30+ brand channels we manage <sup>1</sup></p></div>
           <div class="num reveal"><b class="grad">112.5M</b><p>Views in 16 months on one channel, with $0 spent on ads <sup>2</sup></p></div>
           <div class="num reveal"><b class="grad">4.8X</b><p>Return on ad spend on branded paid campaigns <sup>3</sup></p></div>
         </div>
         <ol class="footnotes">
-          <li>Founder-led track record across all social platforms, 2017 to 2026, including work before IMPROX MEDIA was founded in 2023. 100B+ impressions over the same period.</li>
+          <li>Organic views across the channels IMPROX MEDIA manages, from its own channel management records. Organic means not paid for with ad spend.</li>
           <li>Focus Plus, managed with IMPROX MEDIA, January 2024 to April 2025, from YouTube Studio. <a href="/work/focus-plus">See the case study</a>.</li>
           <li>Meta and Google campaigns, separate from the organic YouTube results. Past results do not guarantee future results.</li>
         </ol>
@@ -125,14 +123,7 @@ const faqs = [
       <div class="wrap">
         <span class="eyebrow">Packaging</span>
         <h2 class="reveal" style="max-width:20ch">The click is won in the <span class="grad">thumbnail.</span></h2>
-        <p class="lead reveal" style="margin-top:20px">Drag to compare a real Shorts grid before and after designed thumbnails.</p>
-        <div class="compare real" id="compare" role="group" aria-label="Before and after comparison of a real YouTube Shorts grid">
-          <div class="cmp before"><span class="lab">BEFORE</span><img src="/proof/more/07-shorts-before.webp" alt="Grid of YouTube Shorts with no custom thumbnails, with view counts from 7.9K to 73K" loading="lazy" decoding="async" /></div>
-          <div class="cmp after"><span class="lab">AFTER</span><img src="/proof/more/08-shorts-now.webp" alt="Grid of YouTube Shorts with designed thumbnails, bold text and a clear call to action" loading="lazy" decoding="async" /></div>
-          <div class="handle"></div>
-          <input type="range" min="0" max="100" value="50" aria-label="Reveal the after version" id="cmp-range" />
-        </div>
-        <p class="compare-note">Real YouTube Studio views of the TSP channel (ISKCON media), led by our founder. Click-through rate readings: 4.2% on 3 Aug 2025 and 6.1% on 14 Oct 2025 (single-day readings, not averages). <a href="/work" style="color:var(--lime);text-decoration:underline">See the results</a></p>
+        <p class="lead reveal" style="margin-top:20px">Every thumbnail we design is built to win the click in the feed.</p>
         <div class="two-col" style="margin-top:60px;align-items:center">
           <figure class="reveal" style="border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)">
             <img src="/proof/more/custom-thumbnail-10x.webp" alt="Thumbnail design sample with bold headline text, a high-contrast green background and an expressive face" width="1000" height="565" loading="lazy" decoding="async" style="width:100%;height:auto" />
@@ -174,23 +165,7 @@ const faqs = [
 
     <Testimonials />
 
-    <section>
-      <div class="wrap">
-        <span class="eyebrow">Leadership</span>
-        <div class="founder-card reveal" style="margin-top:20px">
-          <img src={founder.photo} alt={`${founder.name}, ${founder.role} of IMPROX MEDIA`} width="260" height="260" loading="lazy" decoding="async" />
-          <div>
-            <h3>{founder.name}</h3>
-            <div class="role">{founder.role}</div>
-            <p>{founder.bio[0]}</p>
-            <p>{founder.bio[1]}</p>
-            <p style="margin-top:18px"><a href="/about" style="color:var(--lime)">About our team and credentials →</a></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="plans">
+        <section id="plans">
       <div class="wrap">
         <span class="eyebrow">Plans</span>
         <h2 class="reveal" style="max-width:18ch">Pick a plan, or <span class="grad">build your own.</span></h2>
